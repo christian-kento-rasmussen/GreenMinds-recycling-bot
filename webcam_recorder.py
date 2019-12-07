@@ -18,12 +18,13 @@ def main():
             cv2.imwrite(f"{in_arg.file_dir}/image_{i}.jpg" , frame)
 
         except(KeyboardInterrupt):
-            print("Turning off camera.")
+            print("Turning off camera because of KeyboardInterrupt.")
             webcam.release()
             print("Camera off.")
             print("Program ended.")
             cv2.cv2.destroyAllWindows()
 
+        time.sleep(in_arg.delay) 
     
     # releases the camera
     print("Turning off camera.")
