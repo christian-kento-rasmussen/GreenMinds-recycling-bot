@@ -1,5 +1,6 @@
 from cv2 import cv2
 import argparse
+import time
 
 def main():
     # set up our command line arguments
