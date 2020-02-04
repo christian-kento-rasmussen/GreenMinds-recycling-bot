@@ -1,6 +1,7 @@
 from cv2 import cv2
 import argparse
 import time
+import sys
 
 def main():
     '''
@@ -14,41 +15,51 @@ def main():
     parser.add_argument('--delay', type = float, default=.5, help='Delay between each image being taken')
     parser.add_argument('--camera', type = int, default=0, help='Select what camera to use')
     parser.add_argument('--scale_percent', type = int, default=50, help='How much should the quality be scaled down, from 100 to 1 procent of original')
+    parser.add_argument('--start_val', type = int, default=0, help='Set the start value for the naming of the images, so not to overide images already taken')
     # gets our arguments from the command line
     in_arg = parser.parse_args()
 
     # Sets up webcam
     webcam = cv2.VideoCapture(in_arg.camera)
+
     for i in range(in_arg.photos_count):
         try:
+            progressBar(i + 1, in_arg.photos_count)
+
             frame = webcam.read()[1]
-            cv2.imwrite(f"{in_arg.save_dir}/image_{i}.jpg" , frame)
+            cv2.imwrite(f"{in_arg.save_dir}/image_{i + in_arg.start_val}.jpg" , frame)
 
             # resizes the image to save space
-            img = cv2.imread(f"{in_arg.save_dir}/image_{i}.jpg", cv2.IMREAD_UNCHANGED)
+            img = cv2.imread(f"{in_arg.save_dir}/image_{i + in_arg.start_val}.jpg", cv2.IMREAD_UNCHANGED)
             scale_percent = in_arg.scale_percent # percent of original size
             width = int(img.shape[1] * scale_percent / 100)
             height = int(img.shape[0] * scale_percent / 100)
             dim = (width, height)
-            # resizes and saves image
             resized = cv2.resize(img, dim, interpolation = cv2.INTER_AREA)
-            cv2.imwrite(f"{in_arg.save_dir}/image_{i}.jpg" , resized)
+            
+            # saves image
+            cv2.imwrite(f"{in_arg.save_dir}/image_{i + in_arg.start_val}.jpg" , resized)
 
         except(KeyboardInterrupt):
-            print("Turning off camera because of KeyboardInterrupt.")
             webcam.release()
-            print("Camera off.")
-            print("Program ended.")
             cv2.cv2.destroyAllWindows()
 
         time.sleep(in_arg.delay) 
     
     # releases the camera
-    print("Turning off camera.")
     webcam.release()
-    print("Camera off.")
-    print("Program ended.")
     cv2.destroyAllWindows()
+    print("Camera off.")
+
+# simple progress bar
+# based on: https://stackoverflow.com/a/37630397/6688026
+def progressBar(value, endvalue, bar_length=20):
+    percent = float(value) / endvalue
+    arrow = '-' * int(round(percent * bar_length)-1) + '>'
+    spaces = ' ' * (bar_length - len(arrow))
+
+    sys.stdout.write("\rProgress: [{0}] {1}%".format(arrow + spaces, int(round(percent * 100))))
+    sys.stdout.flush()
 
 # Call to main function to run the program
 if __name__ == "__main__":

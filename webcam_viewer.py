@@ -12,6 +12,9 @@ def main():
         # reads the camera
         _, img = cam.read()
 
+        # flips the image
+        img = cv2.flip(img, 1)
+
         # shows it to the viewer in a pop up window
         cv2.imshow('my webcam', img)
 
