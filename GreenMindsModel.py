@@ -10,7 +10,7 @@ import numpy as np
 import pandas as pd
 from PIL import Image
 
-class GreenMindsNN:
+class GreenMindsModel:
     def __init__(self, model_path):
         self.model_path = model_path
         self.load_model(self.model_path)
@@ -20,7 +20,7 @@ class GreenMindsNN:
             loads a preetrained model of type densenet121
         '''
         # loads the data
-        checkpoint = torch.load(model_path)
+        checkpoint = torch.load(model_path, map_location=lambda storage, loc: storage)
 
         # downloads the pre trained model
         self.model = models.densenet121(pretrained=True)
