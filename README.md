@@ -6,8 +6,14 @@ Then will an on-screen robot congratulate them if they are correct.
 For more information about Green Minds visit the [website](http://www.green-minds.org/)
 
 # Scripts
-## webcam_recorder.py
-It is used to record data for training of the CNN, by taking pictures from the camera at a specified interval and save them to a folder.
+## tkinter_app.py
+[tkinter_app.py](tkinter_app.py) is the main file in the program which when run using `python tkinter_app.py assets/model/densenet_checkpoint.pth` will open a tkinter window that will display the webcam and buttons to say if the item placed in the view of the webcam is recyclable. After the user guesses if it is recyclable, will the program use the CNN to recognize the object and say the if the user was right.
 
 ## GreenMindsNN.ipynb
-It is used to train the CNN in an interactive environment before deployment.
+[GreenMindsNN.ipynb](GreenMindsNN.ipynb) is used to train the neural network using either your own machine or [colab.google.com](https://colab.research.google.com/) which can train the NN in the cloud for free. The trained NN will then be saved and is currently places for the [tkinter_app.py](tkinter_app.py) script to use at `assets/model/densenet_checkpoint.pth`
+
+## webcam_viewer.py
+[webcam_viewer.py](webcam_viewer.py) is a simple tool that creates a tkinter window to show the webcam. This is used so the developer can align up the objects easily when pictures/data is taken using [webcam_recorder.py](webcam_recorder.py)
+
+## webcam_recorder.py
+[webcam_recorder.py](webcam_recorder.py) is used to take pictures/data at a certain interval for the NN to train on
