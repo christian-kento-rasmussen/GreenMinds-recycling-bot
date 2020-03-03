@@ -91,10 +91,13 @@ class TKinterApp:
             Then will it respond if the user was correct
         """
         frame = self.camera.read()[1]
-        cv2.imwrite(
-            "/Volumes/GoogleDrive/My Drive/cs3_Rasmussen/Collab/_DATA/GreenMinds-recycling-data/web_cam_image.jpg", frame)
-        model_prediction = self.green_minds_model.predict(
-            "/Volumes/GoogleDrive/My Drive/cs3_Rasmussen/Collab/_DATA/GreenMinds-recycling-data/web_cam_image.jpg", topk=1)  # c[1][0]
+
+        # converts the color and parses it to pil image
+        img = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        im_pil = Image.fromarray(img)
+
+        # makes the NN predict the type
+        model_prediction = self.green_minds_model.predict(im_pil, topk=1)
 
         prediction_name = model_prediction[1][0]
         prediction_procent = model_prediction[0][0]

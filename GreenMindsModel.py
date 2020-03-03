@@ -10,6 +10,7 @@ import numpy as np
 import pandas as pd
 from PIL import Image
 
+
 class GreenMindsModel:
     def __init__(self, model_path):
         self.model_path = model_path
@@ -61,23 +62,23 @@ class GreenMindsModel:
             transforms.Resize(255),
             transforms.CenterCrop(224),
             transforms.ToTensor(),
-            transforms.Normalize([0.485, 0.456, 0.406],[0.229, 0.224, 0.225])
+            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
         ])
         # applying transforms and returns the image
         return resize(image)
 
-    def predict(self, image_path, topk=5):
+    def predict(self, image, topk=5):
         ''' 
             Predict the class (or classes) of an image using a trained deep learning model.
         '''
         # opens the image and applies preproccessing
-        image = self.process_image(Image.open(image_path))
+        image = self.process_image(image)
         # unsqueezes it
         image = image.unsqueeze_(0)
         # sends it to our device (cpu/gpu)
         image = image.to(self.device)
         self.model = self.model.to(self.device)
-        
+
         # sets our model to eval mode, to disable dropout
         self.model.eval()
         # stops our optimizer for better performance
@@ -87,7 +88,7 @@ class GreenMindsModel:
 
         # converts to probabilities
         ps = torch.exp(logps)
-        
+
         # Get the top 5 probabilities and classes
         prop, classes = ps.topk(topk, dim=1)
 
@@ -99,7 +100,7 @@ class GreenMindsModel:
         labels = []
 
         # reverses our class_to_idx which our model holds
-        idx_to_class = {v : k for k, v in self.model.class_to_idx.items()}
+        idx_to_class = {v: k for k, v in self.model.class_to_idx.items()}
 
         # loops through each prediction to find the labels instead of numbers
         for c in top_classes:
