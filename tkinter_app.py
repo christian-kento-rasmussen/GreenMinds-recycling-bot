@@ -9,7 +9,7 @@ import os
 import sys
 import cv2
 from PIL import Image, ImageTk
-from GreenMindsModel import GreenMindsModel
+from green_minds_model import GreenMindsModel
 
 
 class TKinterApp:
