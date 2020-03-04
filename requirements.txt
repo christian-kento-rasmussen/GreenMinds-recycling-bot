@@ -9,4 +9,4 @@ pylint==2.4.3
 pytest==5.2.2
 pytest-html==2.0.0
 pillow==6.1.0
-pandas==1.01
+pandas==1.0.1
