@@ -64,10 +64,10 @@ class TKinterApp:
         self.panel_video.place(relx=.5, rely=0.075, relwidth=.9, relheight=.8, anchor="n")
 
         # creates the view for the buttons about recyclebel
-        self.not_recycle_button_image = ImageTk.PhotoImage(Image.open("assets/gui/btn_is_recyclable.png"))
+        self.not_recycle_button_image = ImageTk.PhotoImage(Image.open("assets/gui/btn_not_recyclable.png"))
         self.not_recycle_button = tk.Button(self.root, image=self.not_recycle_button_image, command=lambda: (self.button_clicked(False)))
         self.not_recycle_button.place(width=380, height=98, relx=.3, rely=.96, anchor="s")
-        self.recycle_button_image = ImageTk.PhotoImage(Image.open("assets/gui/btn_not_recyclable.png"))
+        self.recycle_button_image = ImageTk.PhotoImage(Image.open("assets/gui/btn_is_recyclable.png"))
         self.recycle_button = tk.Button(self.root, image=self.recycle_button_image, command=lambda: self.button_clicked(True))
         self.recycle_button.place(width=380, height=98, relx=.7, rely=.96, anchor="s")
 
@@ -102,8 +102,8 @@ class TKinterApp:
         prediction_name = model_prediction[1][0]
         prediction_procent = model_prediction[0][0]
 
-        print(prediction_procent)
-        if prediction_procent < .95:
+        print(prediction_procent, prediction_name)
+        if prediction_procent < .93:
             self.show_popup_for(2000, "Please try to align in middle of camera", self.root)
             return
 
