@@ -27,10 +27,10 @@ def main():
             progressBar(i + 1, in_arg.photos_count)
 
             frame = webcam.read()[1]
-            cv2.imwrite(f"{in_arg.save_dir}/image_{i + in_arg.start_val}.jpg" , frame)
+            cv2.imwrite("{}/image_{}.jpg".format(in_arg.save_dir, i + in_arg.start_val), frame)
 
             # resizes the image to save space
-            img = cv2.imread(f"{in_arg.save_dir}/image_{i + in_arg.start_val}.jpg", cv2.IMREAD_UNCHANGED)
+            img = cv2.imread("{}/image_{}.jpg".format(in_arg.save_dir, i + in_arg.start_val), cv2.IMREAD_UNCHANGED)
             scale_percent = in_arg.scale_percent # percent of original size
             width = int(img.shape[1] * scale_percent / 100)
             height = int(img.shape[0] * scale_percent / 100)
@@ -38,11 +38,11 @@ def main():
             resized = cv2.resize(img, dim, interpolation = cv2.INTER_AREA)
             
             # saves image
-            cv2.imwrite(f"{in_arg.save_dir}/image_{i + in_arg.start_val}.jpg" , resized)
+            cv2.imwrite("{}/image_{}.jpg".format(in_arg.save_dir, i + in_arg.start_val), resized)
 
         except(KeyboardInterrupt):
             webcam.release()
-            cv2.cv2.destroyAllWindows()
+            cv2.destroyAllWindows()
 
         time.sleep(in_arg.delay) 
     

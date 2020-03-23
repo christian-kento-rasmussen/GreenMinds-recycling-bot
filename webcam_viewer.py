@@ -4,7 +4,7 @@ import time
 def main():
     '''
         shows the view of the webcam in a popup screen
-        press `esc´ to exit program
+        press esc to exit program
     '''
     cam = cv2.VideoCapture(0)
     

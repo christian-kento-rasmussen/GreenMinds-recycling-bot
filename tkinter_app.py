@@ -25,7 +25,7 @@ class TKinterApp:
 
         # instantiates the NN
         self.green_minds_model = GreenMindsModel(os.path.join(sys.path[0], "assets/model/checkpoint.pth"))
-       
+        
         # loads the json file that contains data for all of the objects
         with open(os.path.join(sys.path[0], "items.json"), "r") as json_file:
             self.items = json.load(json_file)
@@ -103,7 +103,7 @@ class TKinterApp:
         prediction_procent = model_prediction[0][0]
 
         print(prediction_procent, prediction_name)
-        if prediction_procent < .93:
+        if prediction_procent < .1:
             self.show_popup_for(2000, "Please try to align in middle of camera", self.root)
             return
 
