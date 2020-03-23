@@ -1,89 +1,90 @@
 {
     "items": {
         "carton-grassmilk": {
-            "recyclable": true,
+            "recycling-type": "recyclable",
             "guessed_correct": "You are correct! this item is recyclable",
             "guessed_incorrect": "luckily this item is recyclable"
         },
         "carton-chicken": {
-            "recyclable": true,
+            "recycling-type": "recyclable",
             "guessed_correct": "You are correct! this item is recyclable",
             "guessed_incorrect": "luckily this item is recyclable"
         },
         "carton-milk": {
-            "recyclable": true,
+            "recycling-type": "recyclable",
             "guessed_correct": "You are correct! this item is recyclable",
             "guessed_incorrect": "luckily this item is recyclable"
         },
         "pnc-letter": {
-            "recyclable": true,
+            "recycling-type": "recyclable",
             "guessed_correct": "You are correct! this item is recyclable",
             "guessed_incorrect": "luckily this item is recyclable"
         },
         "frenchs-mustard": {
-            "recyclable": true,
+            "recycling-type": "recyclable",
             "guessed_correct": "You are correct! this item is recyclable",
             "guessed_incorrect": "luckily this item is recyclable"
         },
         "croix-lemon": {
-            "recyclable": true,
+            "recycling-type": "recyclable",
             "guessed_correct": "You are correct! this item is recyclable",
             "guessed_incorrect": "luckily this item is recyclable"
         },
         "corner-cafe": {
-            "recyclable": false,
+            "recycling-type": "trash",
             "guessed_correct": "You are correct! this item is not recyclable",
             "guessed_incorrect": "sadly this item is not recyclable"
         },
         "nestle-cookie": {
-            "recyclable": false,
+            "recycling-type": "trash",
             "guessed_correct": "You are correct! this item is not recyclable",
             "guessed_incorrect": "sadly this item is not recyclable"
         },
         "usps-gray": {
-            "recyclable": false,
+            "recycling-type": "trash",
             "guessed_correct": "You are correct! this item is not recyclable",
             "guessed_incorrect": "sadly this item is not recyclable"
         },
         "box-white": {
-            "recyclable": false,
+            "recycling-type": "trash",
             "guessed_correct": "You are correct! this item is not recyclable",
             "guessed_incorrect": "sadly this item is not recyclable"
         },
         "box-takeout": {
-            "recyclable": false,
+            "recycling-type": "trash",
             "guessed_correct": "You are correct! this item is not recyclable",
             "guessed_incorrect": "sadly this item is not recyclable"
         },
         "bear-top": {
-            "recyclable": false,
+            "recycling-type": "trash",
             "guessed_correct": "You are correct! this item is not recyclable",
             "guessed_incorrect": "sadly this item is not recyclable"
         },
         "antony-organic": {
-            "recyclable": false,
+            "recycling-type": "trash",
             "guessed_correct": "You are correct! this item is not recyclable",
             "guessed_incorrect": "sadly this item is not recyclable"
         },
         "starbucks-holder": {
-            "recyclable": true,
+            "recycling-type": "recyclable",
             "guessed_correct": "You are correct! this item is recyclable",
             "guessed_incorrect": "luckily this item is recyclable"
         },
         "cup-plastic": {
-            "recyclable": true,
+            "recycling-type": "recyclable",
             "guessed_correct": "You are correct! this item is recyclable",
             "guessed_incorrect": "luckily this item is recyclable"
         },
         "ethels-baking": {
-            "recyclable": true,
+            "recycling-type": "recyclable",
             "guessed_correct": "You are correct! this item is recyclable",
             "guessed_incorrect": "luckily this item is recyclable"
         },
         "forest-bluff": {
-            "recyclable": true,
+            "recycling-type": "recyclable",
             "guessed_correct": "You are correct! this item is recyclable",
             "guessed_incorrect": "luckily this item is recyclable"
         }
-    }
+    },
+    "objects-recycling-types": ["recyclable","trash","compostable"]
 }
