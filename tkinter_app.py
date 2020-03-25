@@ -24,7 +24,7 @@ class TKinterApp:
         self.setup_layout()
 
         # instantiates the NN
-        self.green_minds_model = GreenMindsModel(os.path.join(sys.path[0], "assets/model/checkpoint.pth"))
+        self.green_minds_model = GreenMindsModel(os.path.join(sys.path[0], "assets/model/checkpoint_03_25_2.pth"))
         
         # loads the json file that contains data for all of the objects
         with open(os.path.join(sys.path[0], "items.json"), "r") as json_file:
