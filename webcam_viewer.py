@@ -1,12 +1,23 @@
-from cv2 import cv2
+"""This file is used to create a simple webcam viewer
+    to use run: python webcam_viewer.py
+"""
+
+import argparse
 import time
+from cv2 import cv2
 
 def main():
     '''
         shows the view of the webcam in a popup screen
         press `esc´ to exit program
     '''
-    cam = cv2.VideoCapture(0)
+
+    # set up our command line arguments
+    parser = argparse.ArgumentParser(description='Shows the webcam using cv2')
+    parser.add_argument('--webcam_number', type=int, default=0, help='Select what camera to use')
+    # gets our arguments from the command line
+    in_arg = parser.parse_args()
+    cam = cv2.VideoCapture(in_arg.webcam_number)
     
     while True:
         # reads the camera
