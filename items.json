@@ -11,11 +11,6 @@
             "guessed_correct": "You are correct! this item is recyclable",
             "guessed_incorrect": "luckily this item is recyclable"
         },
-        "carton-milk": {
-            "recycling-type": "recyclable",
-            "guessed_correct": "You are correct! this item is recyclable",
-            "guessed_incorrect": "luckily this item is recyclable"
-        },
         "pnc-letter": {
             "recycling-type": "recyclable",
             "guessed_correct": "You are correct! this item is recyclable",
@@ -61,22 +56,12 @@
             "guessed_correct": "You are correct! this item is not recyclable",
             "guessed_incorrect": "sadly this item is not recyclable"
         },
-        "antony-organic": {
-            "recycling-type": "trash",
-            "guessed_correct": "You are correct! this item is not recyclable",
-            "guessed_incorrect": "sadly this item is not recyclable"
-        },
         "starbucks-holder": {
             "recycling-type": "recyclable",
             "guessed_correct": "You are correct! this item is recyclable",
             "guessed_incorrect": "luckily this item is recyclable"
         },
-        "cup-plastic": {
-            "recycling-type": "recyclable",
-            "guessed_correct": "You are correct! this item is recyclable",
-            "guessed_incorrect": "luckily this item is recyclable"
-        },
-        "ethels-baking": {
+        "forest-scout": {
             "recycling-type": "recyclable",
             "guessed_correct": "You are correct! this item is recyclable",
             "guessed_incorrect": "luckily this item is recyclable"
@@ -96,32 +81,12 @@
             "guessed_correct": "You are correct! this item is compostable",
             "guessed_incorrect": "luckily this item is compostable"
         },
-        "comp-steak": {
-            "recycling-type": "compostable",
-            "guessed_correct": "You are correct! this item is compostable",
-            "guessed_incorrect": "luckily this item is compostable"
-        },
-        "comp-groundbeef": {
-            "recycling-type": "compostable",
-            "guessed_correct": "You are correct! this item is compostable",
-            "guessed_incorrect": "luckily this item is recyclable"
-        },
-        "comp-cheese": {
-            "recycling-type": "compostable",
-            "guessed_correct": "You are correct! this item is compostable",
-            "guessed_incorrect": "luckily this item is compostable"
-        },
         "comp-butter": {
             "recycling-type": "compostable",
             "guessed_correct": "You are correct! this item is compostable",
             "guessed_incorrect": "luckily this item is compostable"
         },
         "comp-bread": {
-            "recycling-type": "compostable",
-            "guessed_correct": "You are correct! this item is compostable",
-            "guessed_incorrect": "luckily this item is compostable"
-        },
-        "comp-banana": {
             "recycling-type": "compostable",
             "guessed_correct": "You are correct! this item is compostable",
             "guessed_incorrect": "luckily this item is compostable"
