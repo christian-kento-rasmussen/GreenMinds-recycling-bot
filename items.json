@@ -1,5 +1,9 @@
 {
-    "objects-recycling-types": ["recyclable","trash","compostable"],
+    "objects-recycling-types": [
+        "recyclable",
+        "trash",
+        "compostable"
+    ],
     "items": {
         "carton-grassmilk": {
             "recycling-type": "recyclable",
@@ -61,7 +65,12 @@
             "guessed_correct": "You are correct! this item is recyclable",
             "guessed_incorrect": "luckily this item is recyclable"
         },
-        "forest-scout": {
+        "starbucks-cup": {
+            "recycling-type": "recyclable",
+            "guessed_correct": "You are correct! this item is recyclable",
+            "guessed_incorrect": "luckily this item is recyclable"
+        },
+        "forest-bluff": {
             "recycling-type": "recyclable",
             "guessed_correct": "You are correct! this item is recyclable",
             "guessed_incorrect": "luckily this item is recyclable"
@@ -92,6 +101,41 @@
             "guessed_incorrect": "luckily this item is compostable"
         },
         "comp-watermelon": {
+            "recycling-type": "compostable",
+            "guessed_correct": "You are correct! this item is compostable",
+            "guessed_incorrect": "luckily this item is compostable"
+        },
+        "comp-tomato": {
+            "recycling-type": "compostable",
+            "guessed_correct": "You are correct! this item is compostable",
+            "guessed_incorrect": "luckily this item is compostable"
+        },
+        "comp-onion": {
+            "recycling-type": "compostable",
+            "guessed_correct": "You are correct! this item is compostable",
+            "guessed_incorrect": "luckily this item is compostable"
+        },
+        "comp-citrus": {
+            "recycling-type": "compostable",
+            "guessed_correct": "You are correct! this item is compostable",
+            "guessed_incorrect": "luckily this item is compostable"
+        },
+        "comp-orange": {
+            "recycling-type": "compostable",
+            "guessed_correct": "You are correct! this item is compostable",
+            "guessed_incorrect": "luckily this item is compostable"
+        },
+        "comp-banana": {
+            "recycling-type": "compostable",
+            "guessed_correct": "You are correct! this item is compostable",
+            "guessed_incorrect": "luckily this item is compostable"
+        },
+        "comp-cheese": {
+            "recycling-type": "compostable",
+            "guessed_correct": "You are correct! this item is compostable",
+            "guessed_incorrect": "luckily this item is compostable"
+        },
+        "comp-toast": {
             "recycling-type": "compostable",
             "guessed_correct": "You are correct! this item is compostable",
             "guessed_incorrect": "luckily this item is compostable"

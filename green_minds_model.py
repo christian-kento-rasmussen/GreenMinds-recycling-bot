@@ -5,6 +5,7 @@
 import torch
 from torchvision import transforms
 
+
 class GreenMindsModel:
     """" Holds PyTorch model for image inference
     """

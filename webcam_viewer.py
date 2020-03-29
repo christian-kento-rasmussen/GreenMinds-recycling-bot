@@ -16,8 +16,8 @@ def main():
     '''
     # set up our command line arguments
     parser = argparse.ArgumentParser(description='Shows the webcam using cv2')
-    parser.add_argument('--webcam_number', type=int, default=0, help='Select what camera to use')
-    parser.add_argument('--format_as_ImageNet', dest='format_as_ImageNet', action='store_true', help='Should the webcamview be formatted as a ImageNet trained model would see it')
+    parser.add_argument('--webcam_number', '-wn', type=int, default=0, help='Select what camera to use')
+    parser.add_argument('--format_as_ImageNet', '-fai', dest='format_as_ImageNet', action='store_true', help='Should the webcamview be formatted as a ImageNet trained model would see it')
     # gets our arguments from the command line
     in_arg = parser.parse_args()
 

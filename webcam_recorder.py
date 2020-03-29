@@ -5,7 +5,10 @@ import argparse
 import time
 import sys
 from pathlib import Path
+from PIL import Image
+import numpy as np
 from cv2 import cv2
+from torchvision import transforms
 
 
 def main():
@@ -16,11 +19,11 @@ def main():
     # set up our command line arguments
     parser = argparse.ArgumentParser(description='Takes photos at a given interval')
     parser.add_argument('save_dir', type=str, help='Select directory to save pictures in')
-    parser.add_argument('--photos_count', type=int, default=5, help='Amount of photos to take')
-    parser.add_argument('--delay', type=float, default=.5, help='Delay between each image being taken')
-    parser.add_argument('--camera', type=int, default=0, help='Select what camera to use')
-    parser.add_argument('--scale_percent', type=int, default=50, help='How much should the quality be scaled down, from 100 to 1 procent of original')
-    parser.add_argument('--start_val', type=int, default=0, help='Set the start value for the naming of the images, so not to overide images already taken')
+    parser.add_argument('--photos_count', '-pc', type=int, default=5, help='Amount of photos to take')
+    parser.add_argument('--delay', '-d', type=float, default=.5, help='Delay between each image being taken')
+    parser.add_argument('--camera', '-c', type=int, default=0, help='Select what camera to use')
+    parser.add_argument('--start_val', '-sv', type=int, default=0, help='Set the start value for the naming of the images, so not to overide images already taken')
+    parser.add_argument('--resize', '-r', type=int, help='what size should the image be resized to')
     # gets our arguments from the command line
     in_arg = parser.parse_args()
 
@@ -30,23 +33,26 @@ def main():
     # creates the dir where the photos will be stored if it does not exist
     Path(in_arg.save_dir).mkdir(parents=True, exist_ok=True)
 
+    # creates the pre proccessing transforms used for flag --scale
+    resize = transforms.Compose([
+        transforms.Resize(255),
+        transforms.CenterCrop(255)
+    ])
+
     for i in range(in_arg.photos_count):
         try:
             progress_bar(i + 1, in_arg.photos_count)
 
+            # reads the webcam
             frame = webcam.read()[1]
-            cv2.imwrite("{}/image_{}.jpg".format(in_arg.save_dir, i + in_arg.start_val), frame)
 
-            # resizes the image to save space
-            img = cv2.imread("{}/image_{}.jpg".format(in_arg.save_dir, i + in_arg.start_val), cv2.IMREAD_UNCHANGED)
-            scale_percent = in_arg.scale_percent  # percent of original size
-            width = int(img.shape[1] * scale_percent / 100)
-            height = int(img.shape[0] * scale_percent / 100)
-            dim = (width, height)
-            resized = cv2.resize(img, dim, interpolation=cv2.INTER_AREA)
+            # resizes the image if specified
+            if (in_arg.resize is not None):
+                frame = resize(Image.fromarray(frame))
+                frame = np.asarray(frame)
 
             # saves image
-            cv2.imwrite("{}/image_{}.jpg".format(in_arg.save_dir, i + in_arg.start_val), resized)
+            cv2.imwrite("{}/image_{}.jpg".format(in_arg.save_dir, i + in_arg.start_val), frame)
 
         except(KeyboardInterrupt):
             webcam.release()

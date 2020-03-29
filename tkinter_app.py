@@ -25,7 +25,7 @@ class TKinterApp:
 
         # instantiates the NN
         self.green_minds_model = GreenMindsModel(os.path.join(sys.path[0], "assets/model/checkpoint.pth"))
-        
+
         # loads the json file that contains data for all of the objects
         with open(os.path.join(sys.path[0], "items.json"), "r") as json_file:
             self.items = json.load(json_file)
@@ -93,7 +93,7 @@ class TKinterApp:
             runs inferences on the webcam image using the NN model
             Then will it respond if the user was correct
         """
-       
+
         frame = self.camera.read()[1]
 
         # converts the color and parses it to pil image
@@ -121,7 +121,7 @@ class TKinterApp:
                 self.show_popup_for(3000, self.items["items"][prediction_name]["guessed_correct"], self.root)
             else:  # and it is not trash
                 self.show_popup_for(3000, self.items["items"][prediction_name]["guessed_incorrect"], self.root)
-        else: # code runs if the user things the item is compostable
+        else:  # code runs if the user things the item is compostable
             if self.items["items"][prediction_name]["recycling-type"] == "compostable":  # and it is compostable
                 self.show_popup_for(3000, self.items["items"][prediction_name]["guessed_correct"], self.root)
             else:  # and it is not compostable
@@ -131,7 +131,7 @@ class TKinterApp:
         """
             Creates popup frame that congratulates / says the user is wrong
             with there prediction of the object being recyclebel
-        
+
         Arguments:
             milliseconds {[int]} -- [amount of milliseconds before window is destroyed]
             message {[string]} -- [The message to be displayed]
