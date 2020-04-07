@@ -7,138 +7,192 @@
     "items": {
         "carton-grassmilk": {
             "recycling-type": "recyclable",
-            "guessed_correct": "You are correct! this item is recyclable",
-            "guessed_incorrect": "luckily this item is recyclable"
+            "guessed_correct_title": "You are correct! this item is recyclable",
+            "guessed_correct_body": "Just put it in your recycling can at your house, and find more recycling items at 'recycle LFLB' phone app",
+            "guessed_incorrect_title": "luckily this item is recyclable",
+            "guessed_incorrect_body": "If you ever are unsure make sure to check out the 'recycle LFLB' phone app"
         },
         "carton-chicken": {
             "recycling-type": "recyclable",
-            "guessed_correct": "You are correct! this item is recyclable",
-            "guessed_incorrect": "luckily this item is recyclable"
+            "guessed_correct_title": "You are correct! this item is recyclable",
+            "guessed_correct_body": "Just put it in your recycling can at your house, and find more recycling items at 'recycle LFLB' phone app",
+            "guessed_incorrect_title": "luckily this item is recyclable",
+            "guessed_incorrect_body": "If you ever are unsure make sure to check out the 'recycle LFLB' phone app"
         },
         "pnc-letter": {
             "recycling-type": "recyclable",
-            "guessed_correct": "You are correct! this item is recyclable",
-            "guessed_incorrect": "luckily this item is recyclable"
+            "guessed_correct_title": "You are correct! this item is recyclable",
+            "guessed_correct_body": "Just put it in your recycling can at your house, and find more recycling items at 'recycle LFLB' phone app",
+            "guessed_incorrect_title": "luckily this item is recyclable",
+            "guessed_incorrect_body": "If you ever are unsure make sure to check out the 'recycle LFLB' phone app"
         },
         "frenchs-mustard": {
             "recycling-type": "recyclable",
-            "guessed_correct": "You are correct! this item is recyclable",
-            "guessed_incorrect": "luckily this item is recyclable"
+            "guessed_correct_title": "You are correct! this item is recyclable",
+            "guessed_correct_body": "Just put it in your recycling can at your house, and find more recycling items at 'recycle LFLB' phone app",
+            "guessed_incorrect_title": "luckily this item is recyclable",
+            "guessed_incorrect_body": "If you ever are unsure make sure to check out the 'recycle LFLB' phone app"
         },
         "croix-lemon": {
             "recycling-type": "recyclable",
-            "guessed_correct": "You are correct! this item is recyclable",
-            "guessed_incorrect": "luckily this item is recyclable"
+            "guessed_correct_title": "You are correct! this item is recyclable",
+            "guessed_correct_body": "Just put it in your recycling can at your house, and find more recycling items at 'recycle LFLB' phone app",
+            "guessed_incorrect_title": "luckily this item is recyclable",
+            "guessed_incorrect_body": "If you ever are unsure make sure to check out the 'recycle LFLB' phone app"
         },
         "corner-cafe": {
-            "recycling-type": "trash",
-            "guessed_correct": "You are correct! this item is not recyclable",
-            "guessed_incorrect": "sadly this item is not recyclable"
+            "recycling-type": "recyclable",
+            "guessed_correct_title": "You are correct! this item is recyclable",
+            "guessed_correct_body": "Just put it in your recycling can at your house, and find more recycling items at 'recycle LFLB' phone app",
+            "guessed_incorrect_title": "luckily this item is recyclable",
+            "guessed_incorrect_body": "If you ever are unsure make sure to check out the 'recycle LFLB' phone app"
         },
         "nestle-cookie": {
-            "recycling-type": "trash",
-            "guessed_correct": "You are correct! this item is not recyclable",
-            "guessed_incorrect": "sadly this item is not recyclable"
+            "recycling-type": "recyclable",
+            "guessed_correct_title": "You are correct! this item is recyclable",
+            "guessed_correct_body": "Just put it in your recycling can at your house, and find more recycling items at 'recycle LFLB' phone app",
+            "guessed_incorrect_title": "luckily this item is recyclable",
+            "guessed_incorrect_body": "If you ever are unsure make sure to check out the 'recycle LFLB' phone app"
         },
         "usps-gray": {
             "recycling-type": "trash",
-            "guessed_correct": "You are correct! this item is not recyclable",
-            "guessed_incorrect": "sadly this item is not recyclable"
+            "guessed_correct_title": "You are correct! this item is not recyclable",
+            "guessed_correct_body": "However many other items are recyclable so make sure to check out the 'recycle LFLB' phone app",
+            "guessed_incorrect_title": "sadly this item is not recyclable",
+            "guessed_incorrect_body": "However many other items are. To find them just visit 'recycle LFLB' phone app"
         },
         "box-white": {
             "recycling-type": "trash",
-            "guessed_correct": "You are correct! this item is not recyclable",
-            "guessed_incorrect": "sadly this item is not recyclable"
+            "guessed_correct_title": "You are correct! this item is not recyclable",
+            "guessed_correct_body": "However many other items are recyclable so make sure to check out the 'recycle LFLB' phone app",
+            "guessed_incorrect_title": "sadly this item is not recyclable",
+            "guessed_incorrect_body": "However many other items are. To find them just visit 'recycle LFLB' phone app"
         },
         "box-takeout": {
             "recycling-type": "trash",
-            "guessed_correct": "You are correct! this item is not recyclable",
-            "guessed_incorrect": "sadly this item is not recyclable"
+            "guessed_correct_title": "You are correct! this item is not recyclable",
+            "guessed_correct_body": "However many other items are recyclable so make sure to check out the 'recycle LFLB' phone app",
+            "guessed_incorrect_title": "sadly this item is not recyclable",
+            "guessed_incorrect_body": "However many other items are. To find them just visit 'recycle LFLB' phone app"
         },
         "bear-top": {
             "recycling-type": "trash",
-            "guessed_correct": "You are correct! this item is not recyclable",
-            "guessed_incorrect": "sadly this item is not recyclable"
+            "guessed_correct_title": "You are correct! this item is not recyclable",
+            "guessed_correct_body": "However many other items are recyclable so make sure to check out the 'recycle LFLB' phone app",
+            "guessed_incorrect_title": "sadly this item is not recyclable",
+            "guessed_incorrect_body": "However many other items are. To find them just visit 'recycle LFLB' phone app"
         },
         "starbucks-holder": {
             "recycling-type": "recyclable",
-            "guessed_correct": "You are correct! this item is recyclable",
-            "guessed_incorrect": "luckily this item is recyclable"
+            "guessed_correct_title": "You are correct! this item is recyclable",
+            "guessed_correct_body": "Just put it in your recycling can at your house, and find more recycling items at 'recycle LFLB' phone app",
+            "guessed_incorrect_title": "luckily this item is recyclable",
+            "guessed_incorrect_body": "If you ever are unsure make sure to check out the 'recycle LFLB' phone app"
         },
         "starbucks-cup": {
             "recycling-type": "recyclable",
-            "guessed_correct": "You are correct! this item is recyclable",
-            "guessed_incorrect": "luckily this item is recyclable"
+            "guessed_correct_title": "You are correct! this item is recyclable",
+            "guessed_correct_body": "Just put it in your recycling can at your house, and find more recycling items at 'recycle LFLB' phone app",
+            "guessed_incorrect_title": "luckily this item is recyclable",
+            "guessed_incorrect_body": "If you ever are unsure make sure to check out the 'recycle LFLB' phone app"
         },
         "forest-bluff": {
             "recycling-type": "recyclable",
-            "guessed_correct": "You are correct! this item is recyclable",
-            "guessed_incorrect": "luckily this item is recyclable"
+            "guessed_correct_title": "You are correct! this item is recyclable",
+            "guessed_correct_body": "Just put it in your recycling can at your house, and find more recycling items at 'recycle LFLB' phone app",
+            "guessed_incorrect_title": "luckily this item is recyclable",
+            "guessed_incorrect_body": "If you ever are unsure make sure to check out the 'recycle LFLB' phone app"
         },
         "comp-burger": {
             "recycling-type": "compostable",
-            "guessed_correct": "You are correct! this item is compostable",
-            "guessed_incorrect": "luckily this item is compostable"
+            "guessed_correct_title": "You are correct! this item is compostable",
+            "guessed_correct_body": "See many more recyclable items at 'recycle LFLB' phone app",
+            "guessed_incorrect_title": "luckily this item is compostable",
+            "guessed_incorrect_body": "If you ever are unsure, make sure to check out the 'recycle LFLB' phone app"
         },
         "comp-fish": {
             "recycling-type": "compostable",
-            "guessed_correct": "You are correct! this item is compostable",
-            "guessed_incorrect": "luckily this item is compostable"
+            "guessed_correct_title": "You are correct! this item is compostable",
+            "guessed_correct_body": "See many more recyclable items at 'recycle LFLB' phone app",
+            "guessed_incorrect_title": "luckily this item is compostable",
+            "guessed_incorrect_body": "If you ever are unsure, make sure to check out the 'recycle LFLB' phone app"
         },
         "comp-chicken": {
             "recycling-type": "compostable",
-            "guessed_correct": "You are correct! this item is compostable",
-            "guessed_incorrect": "luckily this item is compostable"
+            "guessed_correct_title": "You are correct! this item is compostable",
+            "guessed_correct_body": "See many more recyclable items at 'recycle LFLB' phone app",
+            "guessed_incorrect_title": "luckily this item is compostable",
+            "guessed_incorrect_body": "If you ever are unsure, make sure to check out the 'recycle LFLB' phone app"
         },
         "comp-butter": {
             "recycling-type": "compostable",
-            "guessed_correct": "You are correct! this item is compostable",
-            "guessed_incorrect": "luckily this item is compostable"
+            "guessed_correct_title": "You are correct! this item is compostable",
+            "guessed_correct_body": "See many more recyclable items at 'recycle LFLB' phone app",
+            "guessed_incorrect_title": "luckily this item is compostable",
+            "guessed_incorrect_body": "If you ever are unsure, make sure to check out the 'recycle LFLB' phone app"
         },
         "comp-bread": {
             "recycling-type": "compostable",
-            "guessed_correct": "You are correct! this item is compostable",
-            "guessed_incorrect": "luckily this item is compostable"
+            "guessed_correct_title": "You are correct! this item is compostable",
+            "guessed_correct_body": "See many more recyclable items at 'recycle LFLB' phone app",
+            "guessed_incorrect_title": "luckily this item is compostable",
+            "guessed_incorrect_body": "If you ever are unsure, make sure to check out the 'recycle LFLB' phone app"
         },
         "comp-watermelon": {
             "recycling-type": "compostable",
-            "guessed_correct": "You are correct! this item is compostable",
-            "guessed_incorrect": "luckily this item is compostable"
+            "guessed_correct_title": "You are correct! this item is compostable",
+            "guessed_correct_body": "See many more recyclable items at 'recycle LFLB' phone app",
+            "guessed_incorrect_title": "luckily this item is compostable",
+            "guessed_incorrect_body": "If you ever are unsure, make sure to check out the 'recycle LFLB' phone app"
         },
         "comp-tomato": {
             "recycling-type": "compostable",
-            "guessed_correct": "You are correct! this item is compostable",
-            "guessed_incorrect": "luckily this item is compostable"
+            "guessed_correct_title": "You are correct! this item is compostable",
+            "guessed_correct_body": "See many more recyclable items at 'recycle LFLB' phone app",
+            "guessed_incorrect_title": "luckily this item is compostable",
+            "guessed_incorrect_body": "If you ever are unsure, make sure to check out the 'recycle LFLB' phone app"
         },
         "comp-onion": {
             "recycling-type": "compostable",
-            "guessed_correct": "You are correct! this item is compostable",
-            "guessed_incorrect": "luckily this item is compostable"
+            "guessed_correct_title": "You are correct! this item is compostable",
+            "guessed_correct_body": "See many more recyclable items at 'recycle LFLB' phone app",
+            "guessed_incorrect_title": "luckily this item is compostable",
+            "guessed_incorrect_body": "If you ever are unsure, make sure to check out the 'recycle LFLB' phone app"
         },
         "comp-citrus": {
             "recycling-type": "compostable",
-            "guessed_correct": "You are correct! this item is compostable",
-            "guessed_incorrect": "luckily this item is compostable"
+            "guessed_correct_title": "You are correct! this item is compostable",
+            "guessed_correct_body": "See many more recyclable items at 'recycle LFLB' phone app",
+            "guessed_incorrect_title": "luckily this item is compostable",
+            "guessed_incorrect_body": "If you ever are unsure, make sure to check out the 'recycle LFLB' phone app"
         },
         "comp-orange": {
             "recycling-type": "compostable",
-            "guessed_correct": "You are correct! this item is compostable",
-            "guessed_incorrect": "luckily this item is compostable"
+            "guessed_correct_title": "You are correct! this item is compostable",
+            "guessed_correct_body": "See many more recyclable items at 'recycle LFLB' phone app",
+            "guessed_incorrect_title": "luckily this item is compostable",
+            "guessed_incorrect_body": "If you ever are unsure, make sure to check out the 'recycle LFLB' phone app"
         },
         "comp-banana": {
             "recycling-type": "compostable",
-            "guessed_correct": "You are correct! this item is compostable",
-            "guessed_incorrect": "luckily this item is compostable"
+            "guessed_correct_title": "You are correct! this item is compostable",
+            "guessed_correct_body": "See many more recyclable items at 'recycle LFLB' phone app",
+            "guessed_incorrect_title": "luckily this item is compostable",
+            "guessed_incorrect_body": "If you ever are unsure, make sure to check out the 'recycle LFLB' phone app"
         },
         "comp-cheese": {
             "recycling-type": "compostable",
-            "guessed_correct": "You are correct! this item is compostable",
-            "guessed_incorrect": "luckily this item is compostable"
+            "guessed_correct_title": "You are correct! this item is compostable",
+            "guessed_correct_body": "See many more recyclable items at 'recycle LFLB' phone app",
+            "guessed_incorrect_title": "luckily this item is compostable",
+            "guessed_incorrect_body": "If you ever are unsure, make sure to check out the 'recycle LFLB' phone app"
         },
         "comp-toast": {
             "recycling-type": "compostable",
-            "guessed_correct": "You are correct! this item is compostable",
-            "guessed_incorrect": "luckily this item is compostable"
+            "guessed_correct_title": "You are correct! this item is compostable",
+            "guessed_correct_body": "See many more recyclable items at 'recycle LFLB' phone app",
+            "guessed_incorrect_title": "luckily this item is compostable",
+            "guessed_incorrect_body": "If you ever are unsure, make sure to check out the 'recycle LFLB' phone app"
         }
     }
 }

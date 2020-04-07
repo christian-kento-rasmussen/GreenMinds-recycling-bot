@@ -21,7 +21,9 @@ class TKinterApp:
 
     def __init__(self):
         # Creates the layout for the app using tkinter
-        self.setup_layout()
+        self.root = tk.Tk()
+        self._setup_layout()
+        #self.root.bind("<Configure>", self._update_layout)
 
         # instantiates the NN
         self.green_minds_model = GreenMindsModel(os.path.join(sys.path[0], "assets/model/checkpoint.pth"))
@@ -30,49 +32,70 @@ class TKinterApp:
         with open(os.path.join(sys.path[0], "items.json"), "r") as json_file:
             self.items = json.load(json_file)
 
-        # initiating camera and the gui
+        # initiating camera and starts the app
         self.camera = cv2.VideoCapture(0)
         self.camera1()
         self.root.mainloop()
 
-    def setup_layout(self):
+    def _setup_layout(self):
         """
             Creates the layout for the app using tkinter
         """
         # sets up the view
-        self.root = tk.Tk()
         self.root.title("GreenMinds - Recycling app")
         self.root.geometry("1422x800")
         self.root.configure(background="#1bcc00")
-        self.root.resizable(False, False)
+        # self.root.resizable(False, False)
 
         # creates the bg
-        self.bg_image = ImageTk.PhotoImage(Image.open("assets/gui/root_bg.png"))
-        self.bg = tk.Label(self.root, image=self.bg_image)
+        self.bg = tk.Label(self.root)
         self.bg.place(relwidth=1, relheight=1)
+        self.bg.update()
+        self.bg_image_orig = Image.open("assets/gui/bg.png")
+        self.bg_image = self.bg_image_orig.resize((self.bg.winfo_width(), self.bg.winfo_height()), Image.ANTIALIAS)
+        self.bg_image = ImageTk.PhotoImage(self.bg_image)
+        self.bg.configure(image=self.bg_image)
+        self.bg.image = self.bg_image
 
-        # creates the title bar
-        self.title_image = ImageTk.PhotoImage(Image.open("assets/gui/GreenMinds_title.png"))
-        self.title_bg = tk.Label(self.root, image=self.title_image)
-        self.title_bg.place(width=750, height=75, anchor="n", relx=.5, rely=.035)
+        # creates the test label for use later
+        self.response_label_title = tk.Label(self.root)
+        self.response_label_body = tk.Label(self.root)
 
         # creates the view for the camera
-        self.camera_bg_image = ImageTk.PhotoImage(Image.open("assets/gui/camera_bg.png"))
-        self.camera_bg = tk.Label(self.root, image=self.camera_bg_image)
-        self.camera_bg.place(width=800, height=450, relx=.5, anchor="n", y=150)
-        self.panel_video = tk.Label(self.camera_bg)
-        self.panel_video.place(relx=.5, rely=0.075, relwidth=.9, relheight=.8, anchor="n")
+        self.panel_video = tk.Label(self.root)
+        self.panel_video.place(relx=.95, rely=0.45, relwidth=.4, relheight=.65, anchor="e")
 
         # creates the view for the buttons about recyclable, trash, and compostable
-        self.trash_button_image = ImageTk.PhotoImage(Image.open("assets/gui/btn_not_recyclable.png"))
-        self.trash_button = tk.Button(self.root, image=self.trash_button_image, command=lambda: (self.button_clicked("trash")))
-        self.trash_button.place(width=380, height=98, relx=.3, rely=.96, anchor="s")
-        self.recycle_button_image = ImageTk.PhotoImage(Image.open("assets/gui/btn_is_recyclable.png"))
-        self.recycle_button = tk.Button(self.root, image=self.recycle_button_image, command=lambda: self.button_clicked("recyclable"))
-        self.recycle_button.place(width=380, height=98, relx=.7, rely=.96, anchor="s")
-        self.compostable_button_image = ImageTk.PhotoImage(Image.open("assets/gui/btn_is_recyclable.png"))
-        self.compostable_button = tk.Button(self.root, image=self.compostable_button_image, command=lambda: self.button_clicked("compostable"))
-        self.compostable_button.place(width=380, height=98, relx=.0, rely=.96, anchor="s")
+        self.trash_button = tk.Button(self.root, command=lambda: (self._button_clicked("trash")))
+        self.trash_button.place(relwidth=.2, relheight=.1, relx=.5, rely=.96, anchor="s")
+        self.trash_button.update()
+        self.trash_button_image_orig = Image.open("assets/gui/btn_waste.png")
+        self.trash_button_image = self.trash_button_image_orig.resize((self.trash_button.winfo_width(), self.trash_button.winfo_height()), Image.ANTIALIAS)
+        self.trash_button_image = ImageTk.PhotoImage(self.trash_button_image)
+        self.trash_button.configure(image=self.trash_button_image)
+
+        self.recycle_button = tk.Button(self.root, command=lambda: self._button_clicked("recyclable"))
+        self.recycle_button.place(relwidth=.2, relheight=.1, relx=.05, rely=.96, anchor="sw")
+        self.recycle_button.update()
+        self.recycle_button_image_orig = Image.open("assets/gui/btn_recycle.png")
+        self.recycle_button_image = self.recycle_button_image_orig.resize((self.recycle_button.winfo_width(), self.recycle_button.winfo_height()), Image.ANTIALIAS)
+        self.recycle_button_image = ImageTk.PhotoImage(self.recycle_button_image)
+        self.recycle_button.configure(image=self.recycle_button_image)
+
+        self.compostable_button = tk.Button(self.root, command=lambda: self._button_clicked("compostable"))
+        self.compostable_button.place(relwidth=.2, relheight=.1, relx=.95, rely=.96, anchor="se")
+        self.compostable_button.update()
+        self.compostable_button_image_orig = Image.open("assets/gui/btn_compost.png")
+        self.compostable_button_image = self.compostable_button_image_orig.resize((self.compostable_button.winfo_width(), self.compostable_button.winfo_height()), Image.ANTIALIAS)
+        self.compostable_button_image = ImageTk.PhotoImage(self.compostable_button_image)
+        self.compostable_button.configure(image=self.compostable_button_image)
+
+    def _update_layout(self, event):
+        self.bg.update()
+        bg_image = self.bg_image_orig.resize((self.bg.winfo_width(), self.bg.winfo_height()), Image.ANTIALIAS)
+        bg_image = ImageTk.PhotoImage(bg_image)
+        self.bg.configure(image=bg_image)
+        self.bg.image = bg_image
 
     def camera1(self):
         """
@@ -88,7 +111,7 @@ class TKinterApp:
         self.panel_video.image = frame
         self.panel_video.after(1, self.camera1)
 
-    def button_clicked(self, recycling_type):
+    def _button_clicked(self, recycling_type):
         """
             runs inferences on the webcam image using the NN model
             Then will it respond if the user was correct
@@ -107,46 +130,64 @@ class TKinterApp:
         prediction_procent = model_prediction[0][0]
 
         print(prediction_procent, prediction_name)
-        if prediction_procent < .2:
-            self.show_popup_for(2000, "Please try to align in middle of camera", self.root)
+        if prediction_procent < .5:
+            self.show_popup_for(2000, "Please try to align in middle of camera", "if you are having continuos problems please ask for help", self.panel_video)
             return
 
         if recycling_type == "recyclable":  # the user things that it is recyclebel
             if self.items["items"][prediction_name]["recycling-type"] == "recyclable":  # and it is recyclebel
-                self.show_popup_for(3000, self.items["items"][prediction_name]["guessed_correct"], self.root)
+                self.show_popup_for(5000,
+                                    self.items["items"][prediction_name]["guessed_correct_title"],
+                                    self.items["items"][prediction_name]["guessed_correct_body"],
+                                    self.panel_video)
             else:  # and it is not recyclebel
-                self.show_popup_for(3000, self.items["items"][prediction_name]["guessed_incorrect"], self.root)
+                self.show_popup_for(5000,
+                                    self.items["items"][prediction_name]["guessed_incorrect_title"],
+                                    self.items["items"][prediction_name]["guessed_incorrect_body"],
+                                    self.panel_video)
         elif recycling_type == "trash":  # code runs if the user belives it is trash
             if self.items["items"][prediction_name]["recycling-type"] == "trash":  # and it is trash
-                self.show_popup_for(3000, self.items["items"][prediction_name]["guessed_correct"], self.root)
+                self.show_popup_for(5000,
+                                    self.items["items"][prediction_name]["guessed_correct_title"],
+                                    self.items["items"][prediction_name]["guessed_correct_body"],
+                                    self.panel_video)
             else:  # and it is not trash
-                self.show_popup_for(3000, self.items["items"][prediction_name]["guessed_incorrect"], self.root)
+                self.show_popup_for(5000,
+                                    self.items["items"][prediction_name]["guessed_incorrect_title"],
+                                    self.items["items"][prediction_name]["guessed_incorrect_body"],
+                                    self.panel_video)
         else:  # code runs if the user things the item is compostable
             if self.items["items"][prediction_name]["recycling-type"] == "compostable":  # and it is compostable
-                self.show_popup_for(3000, self.items["items"][prediction_name]["guessed_correct"], self.root)
+                self.show_popup_for(5000,
+                                    self.items["items"][prediction_name]["guessed_correct_title"],
+                                    self.items["items"][prediction_name]["guessed_correct_body"],
+                                    self.panel_video)
             else:  # and it is not compostable
-                self.show_popup_for(3000, self.items["items"][prediction_name]["guessed_incorrect"], self.root)
+                self.show_popup_for(5000,
+                                    self.items["items"][prediction_name]["guessed_incorrect_title"],
+                                    self.items["items"][prediction_name]["guessed_incorrect_body"],
+                                    self.panel_video)
 
-    def show_popup_for(self, milliseconds, message, root):
+    def show_popup_for(self, milliseconds, title_text, body_text, root):
         """
             Creates popup frame that congratulates / says the user is wrong
             with there prediction of the object being recyclebel
 
         Arguments:
             milliseconds {[int]} -- [amount of milliseconds before window is destroyed]
-            message {[string]} -- [The message to be displayed]
+            title {[string]} -- [The title to be displayed]
             root {[tk]} -- [the window that the popup should be created in]
         """
-        # creates the popup frame and label
-        self.popup_bg_image = ImageTk.PhotoImage(Image.open("assets/gui/popup_bg.png"))
-        self.popup_bg = tk.Label(root, image=self.popup_bg_image)
-        self.popup_bg.place(width=432, height=432, relx=.5, y=160, anchor="n")
+        # Creates the response text
+        self.response_label_title = tk.Label(root, text=title_text, font=('Courier', 27), wraplength=500, pady=20)
+        self.response_label_title.place(relx=0, rely=0, relwidth=1, relheight=.3, anchor="nw")
 
-        self.popup_text = tk.Label(self.popup_bg, text=message, font=("Courier", 30), wraplength=300, bg="#e5e5e5")
-        self.popup_text.place(relx=0.5, rely=.1, relwidth=0.8, relheight=0.9, anchor="n")
+        self.response_label_body = tk.Label(root, text=body_text, font=('Courier', 20), wraplength=500, justify=tk.LEFT, padx=20)
+        self.response_label_body.config(anchor=tk.NW)
+        self.response_label_body.place(relx=0, rely=.3, relwidth=1, relheight=.7, anchor="nw")
 
-        # destroys it again after the message have been read
-        self.popup_bg.after(milliseconds, self.popup_bg.destroy)
+        self.response_label_title.after(milliseconds, self.response_label_title.destroy)
+        self.response_label_body.after(milliseconds, self.response_label_body.destroy)
 
 
 if __name__ == "__main__":
