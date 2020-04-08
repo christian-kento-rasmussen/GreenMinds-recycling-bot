@@ -4,7 +4,7 @@ import tkinter as tk
 from PIL import Image, ImageTk
 
 
-class TypeButton:
+class ButtonWidget:
     """Widget code for the three buttons recycling, trash, compost
     """
 

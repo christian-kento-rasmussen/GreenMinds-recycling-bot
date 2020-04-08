@@ -12,7 +12,7 @@ from PIL import Image, ImageTk
 from tkinter_widgets.green_minds_model import GreenMindsModel
 from tkinter_widgets.robot_bart import RobotBart
 from tkinter_widgets.webcam_widget import WebcamWidget
-from tkinter_widgets.type_button import TypeButton
+from tkinter_widgets.button_widget import ButtonWidget
 
 
 class TKinterApp:
@@ -50,23 +50,23 @@ class TKinterApp:
         self.robot_bart = RobotBart(self.root)
 
         # creates the view for the buttons about recyclable, trash, and compostable
-        self.trash_button = TypeButton(self.root, relwidth=.2, relheight=0.1, relx=.5, rely=.96, anchor="s",
-                                       img_default="assets/gui/btn_waste.png",
-                                       img_correct="b",
-                                       img_wrong="c",
-                                       command=lambda: (self._button_clicked("trash")))
-
-        self.recycle_button = TypeButton(self.root, relwidth=.2, relheight=.1, relx=.05, rely=.96, anchor="sw",
-                                         img_default="assets/gui/btn_recycle.png",
+        self.trash_button = ButtonWidget(self.root, relwidth=.2, relheight=0.1, relx=.5, rely=.96, anchor="s",
+                                         img_default="assets/gui/btn_waste.png",
                                          img_correct="b",
                                          img_wrong="c",
-                                         command=lambda: (self._button_clicked("recyclable")))
+                                         command=lambda: (self._button_clicked("trash")))
 
-        self.compost_button = TypeButton(self.root, relwidth=.2, relheight=.1, relx=.95, rely=.96, anchor="se",
-                                         img_default="assets/gui/btn_compost.png",
-                                         img_correct="b",
-                                         img_wrong="c",
-                                         command=lambda: (self._button_clicked("compostable")))
+        self.recycle_button = ButtonWidget(self.root, relwidth=.2, relheight=.1, relx=.05, rely=.96, anchor="sw",
+                                           img_default="assets/gui/btn_recycle.png",
+                                           img_correct="b",
+                                           img_wrong="c",
+                                           command=lambda: (self._button_clicked("recyclable")))
+
+        self.compost_button = ButtonWidget(self.root, relwidth=.2, relheight=.1, relx=.95, rely=.96, anchor="se",
+                                           img_default="assets/gui/btn_compost.png",
+                                           img_correct="b",
+                                           img_wrong="c",
+                                           command=lambda: (self._button_clicked("compostable")))
 
         # needs to be last, the loop will break the flow
         self.webcam = WebcamWidget(self.root)
@@ -140,18 +140,11 @@ class TKinterApp:
             title {string} -- The title to be displayed
             root {tk} -- the window that the popup should be created in
         """
-        # Creates the response text
-        self.response_label_title = tk.Label(root, text=title_text, font=('Avenir', 27), wraplength=500, pady=20)
-        self.response_label_title.place(relx=0, rely=0, relwidth=1, relheight=.3, anchor="nw")
-
-        self.response_label_body = tk.Label(root, text=body_text, font=('Avenir', 20), wraplength=500, justify=tk.LEFT, padx=20)
-        self.response_label_body.config(anchor=tk.NW)
-        self.response_label_body.place(relx=0, rely=.3, relwidth=1, relheight=.7, anchor="nw")
+        self.webcam.add_text_title(title_text, milliseconds)
+        self.webcam.add_text_body(body_text, milliseconds)
 
         # needs to be a lambda so else will it execute to early
         self.webcam.panel_video.after(milliseconds, lambda: self.webcam.start_webcam())
-        self.response_label_title.after(milliseconds, self.response_label_title.destroy)
-        self.response_label_body.after(milliseconds, self.response_label_body.destroy)
 
 
 if __name__ == "__main__":
