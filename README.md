@@ -20,12 +20,3 @@ From here can you place a supported object in front of the camera and guess if i
 
 ## green_minds_model.py
 [green_minds_model.py](green_minds_model.py) is used to load a pre-trained CNN PyTorch model and run inference on PIL images, this class is used as a backend for [tkinter_app.py](tkinter_app.py)
-
-## webcam_viewer.py
-[webcam_viewer.py](webcam_viewer.py) is a simple tool that creates a tkinter window to show the webcam. This is used so the developer can align up the objects easily when pictures/data is taken using [webcam_recorder.py](webcam_recorder.py)
-
-## webcam_recorder.py
-[webcam_recorder.py](webcam_recorder.py) is used to take pictures/data at a specific interval for the CNN to train on
-
-# License
-[MIT](https://choosealicense.com/licenses/mit/)
