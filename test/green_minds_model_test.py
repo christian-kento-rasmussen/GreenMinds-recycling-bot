@@ -1,3 +1,6 @@
+"""Tests for GreenMindsModel
+"""
+
 import os
 import sys
 import unittest
