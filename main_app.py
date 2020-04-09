@@ -8,11 +8,12 @@ import json
 import os
 import sys
 import cv2
-from PIL import Image, ImageTk
+from PIL import Image
 from tkinter_widgets.green_minds_model import GreenMindsModel
 from tkinter_widgets.robot_bart import RobotBart
 from tkinter_widgets.webcam_widget import WebcamWidget
 from tkinter_widgets.button_widget import ButtonWidget
+from tkinter_widgets.object_detection import ObjectDetection
 
 
 class TKinterApp:
@@ -26,13 +27,17 @@ class TKinterApp:
         # Creates the layout for the app using tkinter
         self.root = tk.Tk()
         self._setup_layout()
+        # starts the CNN to look for objects through the webcam
+        self.object_detection = ObjectDetection(self._object_detected)
 
-        # instantiates the NN
-        self.green_minds_model = GreenMindsModel(os.path.join(sys.path[0], "assets/checkpoint.pth"))
-
-        # loads the json file that contains data for all of the objects
+        # loads the json file that contains the data for all of the objects
         with open(os.path.join(sys.path[0], "assets/items.json"), "r") as json_file:
             self.items = json.load(json_file)
+
+        # Holds the value of the object detected by the camera
+        # if the string is not empty does it mean that an item is selected
+        # if it is empty does it mean that the state of the came is 'looking for item'
+        self.detection_name = ""
 
         # starts the app
         self.root.mainloop()
@@ -52,99 +57,94 @@ class TKinterApp:
         # creates the view for the buttons about recyclable, trash, and compostable
         self.trash_button = ButtonWidget(self.root, relwidth=.2, relheight=0.1, relx=.5, rely=.96, anchor="s",
                                          img_default="assets/gui/btn_waste.png",
-                                         img_correct="b",
-                                         img_wrong="c",
+                                         img_correct="assets/gui/btn_waste.png",
+                                         img_wrong="assets/gui/btn_waste.png",
                                          command=lambda: (self._button_clicked("trash")))
 
         self.recycle_button = ButtonWidget(self.root, relwidth=.2, relheight=.1, relx=.05, rely=.96, anchor="sw",
                                            img_default="assets/gui/btn_recycle.png",
-                                           img_correct="b",
-                                           img_wrong="c",
+                                           img_correct="assets/gui/btn_recycle.png",
+                                           img_wrong="assets/gui/btn_recycle.png",
                                            command=lambda: (self._button_clicked("recyclable")))
 
         self.compost_button = ButtonWidget(self.root, relwidth=.2, relheight=.1, relx=.95, rely=.96, anchor="se",
                                            img_default="assets/gui/btn_compost.png",
-                                           img_correct="b",
-                                           img_wrong="c",
+                                           img_correct="assets/gui/btn_compost.png",
+                                           img_wrong="assets/gui/btn_compost.png",
                                            command=lambda: (self._button_clicked("compostable")))
 
         # needs to be last, the loop will break the flow
         self.webcam = WebcamWidget(self.root)
 
-    def _button_clicked(self, recycling_type):
-        """Runs inferences on the webcam image using the NN model
-           Then will it respond if the user was correct
-        """
-        self.webcam.stop_webcam()
-        frame = self.webcam.get_frame()
-
-        # converts the color and parses it to pil image
-        img = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        im_pil = Image.fromarray(img)
-
-        # makes the NN predict the type
-        model_prediction = self.green_minds_model.predict(im_pil, topk=1)
-
-        prediction_name = model_prediction[1][0]
-        prediction_procent = model_prediction[0][0]
-
-        print(prediction_procent, prediction_name)
-        if prediction_procent < .5:
-            self.show_popup_for(2000,
-                                "Please try to align in middle of camera",
-                                "if you are having continuos problems please ask for help",
-                                self.webcam.panel_video)
-            return
-
-        if recycling_type == "recyclable":  # the user things that it is recyclebel
-            if self.items["items"][prediction_name]["recycling-type"] == "recyclable":  # and it is recyclebel
-                self.show_popup_for(5000,
-                                    self.items["items"][prediction_name]["guessed_correct_title"],
-                                    self.items["items"][prediction_name]["guessed_correct_body"],
-                                    self.webcam.panel_video)
-            else:  # and it is not recyclebel
-                self.show_popup_for(5000,
-                                    self.items["items"][prediction_name]["guessed_incorrect_title"],
-                                    self.items["items"][prediction_name]["guessed_incorrect_body"],
-                                    self.webcam.panel_video)
-        elif recycling_type == "trash":  # code runs if the user belives it is trash
-            if self.items["items"][prediction_name]["recycling-type"] == "trash":  # and it is trash
-                self.show_popup_for(5000,
-                                    self.items["items"][prediction_name]["guessed_correct_title"],
-                                    self.items["items"][prediction_name]["guessed_correct_body"],
-                                    self.webcam.panel_video)
-            else:  # and it is not trash
-                self.show_popup_for(5000,
-                                    self.items["items"][prediction_name]["guessed_incorrect_title"],
-                                    self.items["items"][prediction_name]["guessed_incorrect_body"],
-                                    self.webcam.panel_video)
-        else:  # code runs if the user things the item is compostable
-            if self.items["items"][prediction_name]["recycling-type"] == "compostable":  # and it is compostable
-                self.show_popup_for(5000,
-                                    self.items["items"][prediction_name]["guessed_correct_title"],
-                                    self.items["items"][prediction_name]["guessed_correct_body"],
-                                    self.webcam.panel_video)
-            else:  # and it is not compostable
-                self.show_popup_for(5000,
-                                    self.items["items"][prediction_name]["guessed_incorrect_title"],
-                                    self.items["items"][prediction_name]["guessed_incorrect_body"],
-                                    self.webcam.panel_video)
-
-    def show_popup_for(self, milliseconds, title_text, body_text, root):
-        """
-            Creates popup frame that congratulates / says the user is wrong
-            with there prediction of the object being recyclebel
+    def _object_detected(self, detection_name):
+        """Runs when an object have been placed in front of the camera
 
         Arguments:
-            milliseconds {int} -- amount of milliseconds before window is destroyed
-            title {string} -- The title to be displayed
-            root {tk} -- the window that the popup should be created in
+            detection_name {str} -- The name of the item detected
         """
-        self.webcam.add_text_title(title_text, milliseconds)
-        self.webcam.add_text_body(body_text, milliseconds)
+        self.object_detection.stop()
+        self.webcam.stop_webcam()
+        self.detection_name = detection_name
+        self.webcam.add_text_title("Please select where this item belongs")
+        self.robot_bart.make_bart_curious("dsf")
 
-        # needs to be a lambda so else will it execute to early
-        self.webcam.panel_video.after(milliseconds, lambda: self.webcam.start_webcam())
+        # waits for button press / guess from user
+
+    def _button_clicked(self, recycling_type):
+        """ Checks if the user guessed correctly or not and response appropriately
+            if no item hav been detected will it tell the user to put an item up to the camera
+        """
+
+        if self.detection_name == "":
+            self.webcam.add_text_title("Please put an item up to the webcam before selecting a category", 2000)
+            return
+
+        if recycling_type == "recyclable":  # the user thinks that it is recyclebel
+            if self.items["items"][self.detection_name]["recycling-type"] == "recyclable":  # and it is recyclebel
+                self.recycle_button.change_image_correct()
+                self.robot_bart.make_bart_happy(self.detection_name)
+                self.webcam.add_text_title = self.items["items"][self.detection_name]["guessed_correct_title"]
+                self.webcam.add_text_body = self.items["items"][self.detection_name]["guessed_correct_body"]
+                self._reset_app_after(5000)
+            else:  # and it is not recyclebel
+                self.recycle_button.change_image_wrong()
+                self.robot_bart.make_bart_sad(self.detection_name)
+                self.webcam.add_text_title = self.items["items"][self.detection_name]["guessed_incorrect_title"]
+                self.webcam.add_text_body = self.items["items"][self.detection_name]["guessed_incorrect_body"]
+
+        elif recycling_type == "trash":  # code runs if the user belives it is trash
+            if self.items["items"][self.detection_name]["recycling-type"] == "trash":  # and it is trash
+                self.trash_button.change_image_correct()
+                self.robot_bart.make_bart_happy(self.detection_name)
+                self.webcam.add_text_title = self.items["items"][self.detection_name]["guessed_correct_title"]
+                self.webcam.add_text_body = self.items["items"][self.detection_name]["guessed_correct_body"]
+                self._reset_app_after(5000)
+            else:  # and it is not trash
+                self.trash_button.change_image_wrong()
+                self.robot_bart.make_bart_sad(self.detection_name)
+                self.webcam.add_text_title = self.items["items"][self.detection_name]["guessed_incorrect_title"]
+                self.webcam.add_text_body = self.items["items"][self.detection_name]["guessed_incorrect_body"]
+
+        else:  # code runs if the user things the item is compostable
+            if self.items["items"][self.detection_name]["recycling-type"] == "compostable":  # and it is compostable
+                self.compost_button.change_image_correct()
+                self.robot_bart.make_bart_happy(self.detection_name)
+                self.webcam.add_text_title = self.items["items"][self.detection_name]["guessed_correct_title"]
+                self.webcam.add_text_body = self.items["items"][self.detection_name]["guessed_correct_body"]
+                self._reset_app_after(5000)
+            else:  # and it is not compostable
+                self.compost_button.change_image_wrong()
+                self.robot_bart.make_bart_sad(self.detection_name)
+                self.webcam.add_text_title = self.items["items"][self.detection_name]["guessed_incorrect_title"]
+                self.webcam.add_text_body = self.items["items"][self.detection_name]["guessed_incorrect_body"]
+
+    def _reset_app_after(self, time):
+        self.webcam.panel_video.after(time, lambda: self.webcam.start_webcam())
+        self.webcam.panel_video.after(time, lambda: self.webcam.clear_text())
+        self.robot_bart.robot_bart.after(time, lambda: self.robot_bart.make_bart_default())
+        self.recycle_button.change_image_default()
+        self.trash_button.change_image_default()
+        self.compost_button.change_image_default()
 
 
 if __name__ == "__main__":
