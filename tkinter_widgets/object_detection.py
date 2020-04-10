@@ -22,40 +22,57 @@ class ObjectDetection(threading.Thread):
             webcam_number {int} -- the webcam number to use (default: {0})
         """
         threading.Thread.__init__(self)
-        self._running = True
+        self.__flag = threading.Event()
+        self.__flag.set()
+        self.__running = threading.Event()
+        self.__running.set()
+
         self.checkpoint_path = checkpoint_path
         self.webcam_number = webcam_number
         self.callback_command = callback_command
+
         self.start()
 
-    def stop(self):
-        """Terminates the running thread
+    def pause(self):
+        """Pauses the CNN from detection objects
         """
-        self._running = False
+        self.__flag.clear()   # set to False to allow threads to block
+
+    def resume(self):
+        """Resumes the CNN to continue detecting objects
+        """
+        self.__flag.set()  # set to True to allow thread to stop blocking
+
+    def stop(self):
+        """Stops the thread
+        """
+        self.__flag.set()    # Restores a thread from a paused state.
+        self.__running.clear()    # set to False
 
     def run(self):
-        """Main loop
-            looks for object in webcam view and calls callback_command on detection
+        """Main loop looks for object in webcam view and calls callback_command on detection
         """
         # instantiates the NN and the camera
         green_minds_model = GreenMindsModel(os.path.join(sys.path[0], self.checkpoint_path))
         camera = cv2.VideoCapture(self.webcam_number)
 
         # runs continuous
-        while self._running:
-            frame = camera.read()[1]
+        while self.__running.isSet():
+            self.__flag.wait()
 
-            # converts the color and parses it to pil image
+            # converts the webcam and parses it to pil image
+            frame = camera.read()[1]
             img = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             im_pil = Image.fromarray(img)
 
             # makes the NN predict the type
             model_prediction = green_minds_model.predict(im_pil, topk=1)
-
             prediction_name = model_prediction[1][0]
             prediction_procent = model_prediction[0][0]
+
             print(prediction_procent)
             if prediction_procent > .5:
                 self.callback_command(prediction_name)
 
         camera.release()
+        print("INFO - thread stopped")

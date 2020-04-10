@@ -7,9 +7,6 @@ import tkinter as tk
 import json
 import os
 import sys
-import cv2
-from PIL import Image
-from tkinter_widgets.green_minds_model import GreenMindsModel
 from tkinter_widgets.robot_bart import RobotBart
 from tkinter_widgets.webcam_widget import WebcamWidget
 from tkinter_widgets.button_widget import ButtonWidget
@@ -26,6 +23,7 @@ class TKinterApp:
     def __init__(self):
         # Creates the layout for the app using tkinter
         self.root = tk.Tk()
+        self.root.protocol("WM_DELETE_WINDOW", self._on_close)
         self._setup_layout()
         # starts the CNN to look for objects through the webcam
         self.object_detection = ObjectDetection(self._object_detected)
@@ -42,6 +40,12 @@ class TKinterApp:
         # starts the app
         self.root.mainloop()
 
+    def _on_close(self):
+        """Stops the thread that runs the CNN
+        """
+        self.object_detection.stop()
+        self.root.destroy()
+
     def _setup_layout(self):
         """Creates the layout for the app using tkinter
         """
@@ -57,20 +61,20 @@ class TKinterApp:
         # creates the view for the buttons about recyclable, trash, and compostable
         self.trash_button = ButtonWidget(self.root, relwidth=.2, relheight=0.1, relx=.5, rely=.96, anchor="s",
                                          img_default="assets/gui/btn_waste.png",
-                                         img_correct="assets/gui/btn_waste.png",
-                                         img_wrong="assets/gui/btn_waste.png",
+                                         img_correct="assets/gui/btn_waste_correct.png",
+                                         img_wrong="assets/gui/btn_waste_wrong.png",
                                          command=lambda: (self._button_clicked("trash")))
 
         self.recycle_button = ButtonWidget(self.root, relwidth=.2, relheight=.1, relx=.05, rely=.96, anchor="sw",
                                            img_default="assets/gui/btn_recycle.png",
-                                           img_correct="assets/gui/btn_recycle.png",
-                                           img_wrong="assets/gui/btn_recycle.png",
+                                           img_correct="assets/gui/btn_recycle_correct.png",
+                                           img_wrong="assets/gui/btn_recycle_wrong.png",
                                            command=lambda: (self._button_clicked("recyclable")))
 
         self.compost_button = ButtonWidget(self.root, relwidth=.2, relheight=.1, relx=.95, rely=.96, anchor="se",
                                            img_default="assets/gui/btn_compost.png",
-                                           img_correct="assets/gui/btn_compost.png",
-                                           img_wrong="assets/gui/btn_compost.png",
+                                           img_correct="assets/gui/btn_compost_correct.png",
+                                           img_wrong="assets/gui/btn_compost_wrong.png",
                                            command=lambda: (self._button_clicked("compostable")))
 
         # needs to be last, the loop will break the flow
@@ -82,11 +86,11 @@ class TKinterApp:
         Arguments:
             detection_name {str} -- The name of the item detected
         """
-        self.object_detection.stop()
+        self.object_detection.pause()
         self.webcam.stop_webcam()
         self.detection_name = detection_name
         self.webcam.add_text_title("Please select where this item belongs")
-        self.robot_bart.make_bart_curious("dsf")
+        self.robot_bart.make_bart_curious(self.detection_name)
 
         # waits for button press / guess from user
 
@@ -102,49 +106,59 @@ class TKinterApp:
         if recycling_type == "recyclable":  # the user thinks that it is recyclebel
             if self.items["items"][self.detection_name]["recycling-type"] == "recyclable":  # and it is recyclebel
                 self.recycle_button.change_image_correct()
-                self.robot_bart.make_bart_happy(self.detection_name)
-                self.webcam.add_text_title = self.items["items"][self.detection_name]["guessed_correct_title"]
-                self.webcam.add_text_body = self.items["items"][self.detection_name]["guessed_correct_body"]
-                self._reset_app_after(5000)
+                self.robot_bart.make_bart_happy()
+                self.webcam.clear_text()
+                self.webcam.add_text_title(self.items["items"][self.detection_name]["guessed_correct_title"])
+                self.webcam.add_text_body(self.items["items"][self.detection_name]["guessed_correct_body"])
+                self.compost_button.btn.after(3500, lambda: self._reset_app_after())
+
             else:  # and it is not recyclebel
                 self.recycle_button.change_image_wrong()
-                self.robot_bart.make_bart_sad(self.detection_name)
-                self.webcam.add_text_title = self.items["items"][self.detection_name]["guessed_incorrect_title"]
-                self.webcam.add_text_body = self.items["items"][self.detection_name]["guessed_incorrect_body"]
+                self.robot_bart.make_bart_sad()
+                self.webcam.clear_text()
+                self.webcam.add_text_title(self.items["items"][self.detection_name]["guessed_incorrect_title"])
+                self.webcam.add_text_body(self.items["items"][self.detection_name]["guessed_incorrect_body"])
 
         elif recycling_type == "trash":  # code runs if the user belives it is trash
             if self.items["items"][self.detection_name]["recycling-type"] == "trash":  # and it is trash
                 self.trash_button.change_image_correct()
-                self.robot_bart.make_bart_happy(self.detection_name)
-                self.webcam.add_text_title = self.items["items"][self.detection_name]["guessed_correct_title"]
-                self.webcam.add_text_body = self.items["items"][self.detection_name]["guessed_correct_body"]
-                self._reset_app_after(5000)
+                self.robot_bart.make_bart_happy()
+                self.webcam.clear_text()
+                self.webcam.add_text_title(self.items["items"][self.detection_name]["guessed_correct_title"])
+                self.webcam.add_text_body(self.items["items"][self.detection_name]["guessed_correct_body"])
+                self.trash_button.btn.after(3500, lambda: self._reset_app_after())
+
             else:  # and it is not trash
                 self.trash_button.change_image_wrong()
-                self.robot_bart.make_bart_sad(self.detection_name)
-                self.webcam.add_text_title = self.items["items"][self.detection_name]["guessed_incorrect_title"]
-                self.webcam.add_text_body = self.items["items"][self.detection_name]["guessed_incorrect_body"]
+                self.robot_bart.make_bart_sad()
+                self.webcam.clear_text()
+                self.webcam.add_text_title(self.items["items"][self.detection_name]["guessed_incorrect_title"])
+                self.webcam.add_text_body(self.items["items"][self.detection_name]["guessed_incorrect_body"])
 
         else:  # code runs if the user things the item is compostable
             if self.items["items"][self.detection_name]["recycling-type"] == "compostable":  # and it is compostable
                 self.compost_button.change_image_correct()
-                self.robot_bart.make_bart_happy(self.detection_name)
-                self.webcam.add_text_title = self.items["items"][self.detection_name]["guessed_correct_title"]
-                self.webcam.add_text_body = self.items["items"][self.detection_name]["guessed_correct_body"]
-                self._reset_app_after(5000)
+                self.robot_bart.make_bart_happy()
+                self.webcam.clear_text()
+                self.webcam.add_text_title(self.items["items"][self.detection_name]["guessed_correct_title"])
+                self.webcam.add_text_body(self.items["items"][self.detection_name]["guessed_correct_body"])
+                self.compost_button.btn.after(3500, lambda: self._reset_app_after())
             else:  # and it is not compostable
                 self.compost_button.change_image_wrong()
-                self.robot_bart.make_bart_sad(self.detection_name)
-                self.webcam.add_text_title = self.items["items"][self.detection_name]["guessed_incorrect_title"]
-                self.webcam.add_text_body = self.items["items"][self.detection_name]["guessed_incorrect_body"]
+                self.robot_bart.make_bart_sad()
+                self.webcam.clear_text()
+                self.webcam.add_text_title(self.items["items"][self.detection_name]["guessed_incorrect_title"])
+                self.webcam.add_text_body(self.items["items"][self.detection_name]["guessed_incorrect_body"])
 
-    def _reset_app_after(self, time):
-        self.webcam.panel_video.after(time, lambda: self.webcam.start_webcam())
-        self.webcam.panel_video.after(time, lambda: self.webcam.clear_text())
-        self.robot_bart.robot_bart.after(time, lambda: self.robot_bart.make_bart_default())
+    def _reset_app_after(self):
+        self.detection_name = ""
+        self.webcam.clear_text()
+        self.robot_bart.make_bart_default()
         self.recycle_button.change_image_default()
         self.trash_button.change_image_default()
         self.compost_button.change_image_default()
+        self.webcam.start_webcam()
+        self.object_detection.resume()
 
 
 if __name__ == "__main__":

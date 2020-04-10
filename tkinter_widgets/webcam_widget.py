@@ -61,10 +61,10 @@ class WebcamWidget:
         """Displays text on top of the webcam with format Title
 
         Arguments:
-            text {string} -- the text to be displayed
+            text {str} -- the text to be displayed
             for_time {int} -- the time in milliseconds before the text will be removed
         """
-        self.response_label_title = tk.Label(self.panel_video, text=text, bg="#2C6E3E", font=('Avenir', 27), wraplength=500, pady=10)
+        self.response_label_title = tk.Label(self.panel_video, text=text, bg="#377f4f", font=('Avenir', 27, "bold"), wraplength=500, pady=10)
         self.response_label_title.config(anchor=tk.N)
         self.response_label_title.place(relx=0, rely=0, relwidth=1, relheight=.1, anchor="nw")
 
@@ -75,10 +75,10 @@ class WebcamWidget:
         """Displays text on top of the webcam with format body
 
         Arguments:
-            text {string} -- the text to be displayed
+            text {str} -- the text to be displayed
             for_time {int} -- the time in milliseconds before the text will be removed
         """
-        self.response_label_body = tk.Label(self.panel_video, text=text, bg="#2C6E3E", font=('Avenir', 20), wraplength=500, justify=tk.LEFT, pady=20)
+        self.response_label_body = tk.Label(self.panel_video, text=text, bg="#377f4f", font=('Avenir', 20, "bold"), wraplength=500, justify=tk.LEFT, pady=20)
         self.response_label_body.config(anchor=tk.N)
         self.response_label_body.place(relx=0, rely=1, relwidth=1, relheight=.15, anchor="sw")
 

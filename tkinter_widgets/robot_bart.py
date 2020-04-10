@@ -12,6 +12,8 @@ class RobotBart:
         self.root = root
         self.robot_bart = tk.Label(self.root)
         self.robot_bart.place(relwidth=1, relheight=1)
+
+        self.name_label = None
         self.make_bart_default()
 
     def _update_image(self, image_path):
@@ -30,19 +32,33 @@ class RobotBart:
     def make_bart_default(self):
         """Makes bart's mood default
         """
+        self._remove_label_item_name()
         self._update_image("assets/gui/bart_default.png")
 
-    def make_bart_happy(self, text):
+    def make_bart_happy(self):
         """Makes bart's mood happy
         """
-        self._update_image("assets/gui/bart_happy.jpg")
+        self._remove_label_item_name()
+        self._update_image("assets/gui/bart_happy.png")
 
-    def make_bart_sad(self, text):
+    def make_bart_sad(self):
         """Makes bart's mood sad
         """
-        self._update_image("assets/gui/bart_sad.jpg")
+        self._remove_label_item_name()
+        self._update_image("assets/gui/bart_sad.png")
 
-    def make_bart_curious(self, text):
+    def make_bart_curious(self, item_name):
         """Makes bart's mood curious
         """
-        self._update_image("assets/gui/bart_curious.jpg")
+        self._remove_label_item_name()
+        self._update_image("assets/gui/bart_curious.png")
+        self._create_label_item_name(item_name)
+
+    def _create_label_item_name(self, item_name):
+        self.name_label = tk.Label(self.root, text=item_name, bg="#d0dfae", fg="#006838", font=('Avenir', 40, "bold"), wraplength=200, anchor="n")
+        self.name_label.place(relx=.35, rely=0.58, relwidth=.16, relheight=.14, anchor="n")
+
+    def _remove_label_item_name(self):
+        if self.name_label:
+            self.name_label.destroy()
+            self.name_label = None
