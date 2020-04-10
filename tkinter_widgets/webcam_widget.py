@@ -32,11 +32,22 @@ class WebcamWidget:
             # flips the image
             frame = cv2.flip(frame, 1)
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            frame = Image.fromarray(frame)
+            frame = Image.fromarray(frame)      # cuts the image to .88 procent of its size to match the dimension the CNN will take in
+            frame = self._im_crop_center(frame, frame.size[1] * .88, frame.size[1] * .88)
+            frame = frame.resize((self.panel_video.winfo_width(), self.panel_video.winfo_height()), Image.ANTIALIAS)
             frame = ImageTk.PhotoImage(frame)
             self.panel_video.configure(image=frame)
             self.panel_video.image = frame
             self.panel_video.after(1, self._update_camera)
+
+    # https://stackoverflow.com/a/59382317/6688026
+    def _im_crop_center(self, img, w, h):
+        img_width, img_height = img.size
+        left, right = (img_width - w) / 2, (img_width + w) / 2
+        top, bottom = (img_height - h) / 2, (img_height + h) / 2
+        left, top = round(max(0, left)), round(max(0, top))
+        right, bottom = round(min(img_width - 0, right)), round(min(img_height - 0, bottom))
+        return img.crop((left, top, right, bottom))
 
     def get_frame(self):
         """takes a picture from the webcam

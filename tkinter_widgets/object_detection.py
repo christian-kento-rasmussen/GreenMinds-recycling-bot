@@ -71,7 +71,7 @@ class ObjectDetection(threading.Thread):
             prediction_procent = model_prediction[0][0]
 
             print(prediction_procent)
-            if prediction_procent > .5:
+            if prediction_procent > .6:
                 self.callback_command(prediction_name)
 
         camera.release()
