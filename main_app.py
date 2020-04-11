@@ -90,7 +90,7 @@ class TKinterApp:
         self.webcam.stop_webcam()
         self.detection_name = detection_name
         self.webcam.add_text_title("Please select where this item belongs")
-        self.robot_bart.make_bart_curious(self.detection_name)
+        self.robot_bart.make_bart_curious(self.items["items"][detection_name]["name"])
 
         # waits for button press / guess from user
 
