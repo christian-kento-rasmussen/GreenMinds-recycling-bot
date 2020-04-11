@@ -24,7 +24,7 @@ class TestGreenMindsModel(unittest.TestCase):
             Tests that the loaded PyTorch model runs inference correctly
         """
         green_minds_model = GreenMindsModel(os.path.join(sys.path[0], "assets/checkpoint.pth"))
-        self.assertEqual(green_minds_model.predict(Image.open(os.path.join(sys.path[0], "assets/test_image_grassmilk.jpg")), topk=1)[1][0], "carton-grassmilk")
+        self.assertEqual(green_minds_model.predict(Image.open(os.path.join(sys.path[0], "test/assets/test_image_grassmilk.jpg")), topk=1)[1][0], "carton-grassmilk")
 
 
 if __name__ == '__main__':

@@ -27,21 +27,34 @@ class WebcamWidget:
         """
             Updates camera with new image from webcam
         """
-        if self._should_camera_run:
-            _, frame = self.camera.read()
-            # flips the image
-            frame = cv2.flip(frame, 1)
-            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            frame = Image.fromarray(frame)      # cuts the image to .88 procent of its size to match the dimension the CNN will take in
-            frame = self._im_crop_center(frame, frame.size[1] * .88, frame.size[1] * .88)
-            frame = frame.resize((self.panel_video.winfo_width(), self.panel_video.winfo_height()), Image.ANTIALIAS)
-            frame = ImageTk.PhotoImage(frame)
-            self.panel_video.configure(image=frame)
-            self.panel_video.image = frame
-            self.panel_video.after(1, self._update_camera)
+        try:
+            if self._should_camera_run:
+                _, frame = self.camera.read()
+                # flips the image
+                frame = cv2.flip(frame, 1)
+                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                frame = Image.fromarray(frame)      # cuts the image to .88 procent of its size to match the dimension the CNN will take in
+                frame = self._im_crop_center(frame, frame.size[1] * .88, frame.size[1] * .88)
+                frame = frame.resize((self.panel_video.winfo_width(), self.panel_video.winfo_height()), Image.ANTIALIAS)
+                frame = ImageTk.PhotoImage(frame)
+                self.panel_video.configure(image=frame)
+                self.panel_video.image = frame
+                self.panel_video.after(1, self._update_camera)
+        except:
+            print("ERROR - camera read frame wrong")
 
     # https://stackoverflow.com/a/59382317/6688026
     def _im_crop_center(self, img, w, h):
+        """Crops the image around the center
+
+        Arguments:
+            img {PIL} -- the image
+            w {int} -- the width to crop to
+            h {int} -- the height to crop to
+
+        Returns:
+            PIL -- returns the cropped image
+        """
         img_width, img_height = img.size
         left, right = (img_width - w) / 2, (img_width + w) / 2
         top, bottom = (img_height - h) / 2, (img_height + h) / 2

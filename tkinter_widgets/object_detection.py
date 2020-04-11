@@ -70,7 +70,7 @@ class ObjectDetection(threading.Thread):
             prediction_name = model_prediction[1][0]
             prediction_procent = model_prediction[0][0]
 
-            print(prediction_procent)
+            print(f"INFO - camera detected {prediction_name}, at percentage {(prediction_procent*100):.1f}%")
             if prediction_procent > .6:
                 self.callback_command(prediction_name)
 

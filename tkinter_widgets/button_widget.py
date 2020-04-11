@@ -38,11 +38,14 @@ class ButtonWidget:
         Arguments:
             image_path {String} -- Path to image
         """
-        self.btn.update()
-        btn_image_orig = Image.open(image_path)
-        self.btn_image = btn_image_orig.resize((self.btn.winfo_width(), self.btn.winfo_height()), Image.ANTIALIAS)
-        self.btn_image = ImageTk.PhotoImage(self.btn_image)
-        self.btn.configure(image=self.btn_image)
+        try:
+            self.btn.update()
+            btn_image_orig = Image.open(image_path)
+            self.btn_image = btn_image_orig.resize((self.btn.winfo_width(), self.btn.winfo_height()), Image.ANTIALIAS)
+            self.btn_image = ImageTk.PhotoImage(self.btn_image)
+            self.btn.configure(image=self.btn_image)
+        except:
+            print("ERROR - could not get size dimensions")
 
     def change_image_default(self):
         """Changes the image to be the default image

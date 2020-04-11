@@ -2,6 +2,7 @@
 """
 import tkinter as tk
 from PIL import Image, ImageTk
+import datetime
 
 
 class RobotBart:
@@ -13,8 +14,21 @@ class RobotBart:
         self.robot_bart = tk.Label(self.root)
         self.robot_bart.place(relwidth=1, relheight=1)
 
+        self.winfo_height = self.robot_bart.winfo_height()
+        self.winfo_width = self.robot_bart.winfo_width()
+        self.robot_bart.bind("<Configure>", self.on_resize)
+
         self.name_label = None
         self.make_bart_default()
+
+    def on_resize(self, event):
+        """Runs on window resize
+
+        Arguments:
+            event {event} -- event
+        """
+        self.winfo_height = event.height
+        self.winfo_width = event.width
 
     def _update_image(self, image_path):
         """Updates the label of bart
@@ -24,7 +38,7 @@ class RobotBart:
         """
         self.robot_bart.update()
         robot_bart_img = Image.open(image_path)
-        robot_bart_img = robot_bart_img.resize((self.robot_bart.winfo_width(), self.robot_bart.winfo_height()), Image.ANTIALIAS)
+        robot_bart_img = robot_bart_img.resize((self.winfo_width, self.winfo_height), Image.ANTIALIAS)
         robot_bart_img = ImageTk.PhotoImage(robot_bart_img)
         self.robot_bart.configure(image=robot_bart_img)
         self.robot_bart.image = robot_bart_img
