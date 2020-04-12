@@ -2,8 +2,8 @@
 """
 import logging as log
 import tkinter as tk
+import simpleaudio as sa
 from PIL import Image, ImageTk
-import datetime
 
 
 class RobotBart:
@@ -71,6 +71,26 @@ class RobotBart:
         self._remove_label_item_name()
         self._update_image("assets/gui/bart_curious.png")
         self._create_label_item_name(item_name)
+
+    def play_happy_anim(self):
+        """plays bart's happy anim with sound
+        """
+        self._remove_label_item_name()
+        self._play_anim("assets/gui/Bart_happy_anim", 1000, 0, 2)
+        sound = sa.WaveObject.from_wave_file("assets/gui/Bart_happy_anim/audio.wav")
+        sound.play()
+
+    def _play_anim(self, path, with_delay, currect_image, end_image):
+        """Plays an animations by calling itself   
+
+        Arguments:
+            path {str} -- the path to the image
+            currect_image {int} -- the image to play
+            end_image {int} -- The last image to play
+        """
+        if currect_image <= end_image:
+            self._update_image(path + "/frame_" + str(currect_image) + ".png")
+            self.robot_bart.after(with_delay, lambda: self._play_anim(path, with_delay, currect_image+1, end_image))
 
     def _create_label_item_name(self, item_name):
         self.name_label = tk.Label(self.root, text=item_name, bg="#d0dfae", fg="#006838", font=('Avenir', 40, "bold"), wraplength=200, anchor="n")
