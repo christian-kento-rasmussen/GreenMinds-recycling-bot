@@ -1,5 +1,6 @@
 """Code for continuous object detection
 """
+import logging as log
 import threading
 import os
 import sys
@@ -70,9 +71,9 @@ class ObjectDetection(threading.Thread):
             prediction_name = model_prediction[1][0]
             prediction_procent = model_prediction[0][0]
 
-            print(f"INFO - camera detected {prediction_name}, at percentage {(prediction_procent*100):.1f}%")
+            log.info("camera detected %s at percentage %s", prediction_name, round(prediction_procent*100, 2))
             if prediction_procent > .6:
                 self.callback_command(prediction_name)
 
         camera.release()
-        print("INFO - thread stopped")
+        log.info("thread stopped")

@@ -1,5 +1,6 @@
 """Code for the robt and background widget
 """
+import logging as log
 import tkinter as tk
 import cv2
 from PIL import Image, ImageTk
@@ -41,7 +42,8 @@ class WebcamWidget:
                 self.panel_video.image = frame
                 self.panel_video.after(1, self._update_camera)
         except:
-            print("ERROR - camera read frame wrong")
+            log.warning("camera read frame wrong, trying again")
+            self.panel_video.after(1, self._update_camera)
 
     # https://stackoverflow.com/a/59382317/6688026
     def _im_crop_center(self, img, w, h):

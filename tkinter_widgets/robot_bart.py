@@ -1,5 +1,6 @@
 """Code for the robt and background widget
 """
+import logging as log
 import tkinter as tk
 from PIL import Image, ImageTk
 import datetime
@@ -36,12 +37,15 @@ class RobotBart:
         Arguments:
             image_path {String} -- Path for the image which to update with
         """
-        self.robot_bart.update()
-        robot_bart_img = Image.open(image_path)
-        robot_bart_img = robot_bart_img.resize((self.winfo_width, self.winfo_height), Image.ANTIALIAS)
-        robot_bart_img = ImageTk.PhotoImage(robot_bart_img)
-        self.robot_bart.configure(image=robot_bart_img)
-        self.robot_bart.image = robot_bart_img
+        try:
+            self.robot_bart.update()
+            robot_bart_img = Image.open(image_path)
+            robot_bart_img = robot_bart_img.resize((self.winfo_width, self.winfo_height), Image.ANTIALIAS)
+            robot_bart_img = ImageTk.PhotoImage(robot_bart_img)
+            self.robot_bart.configure(image=robot_bart_img)
+            self.robot_bart.image = robot_bart_img
+        except:
+            log.warning("bart image could not be loaded")
 
     def make_bart_default(self):
         """Makes bart's mood default

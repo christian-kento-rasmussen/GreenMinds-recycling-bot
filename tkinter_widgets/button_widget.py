@@ -1,11 +1,12 @@
-"""Code for the three buttons recycling, trash, compost
+"""Code for the three buttons recycling, waste, compost
 """
+import logging as log
 import tkinter as tk
 from PIL import Image, ImageTk
 
 
 class ButtonWidget:
-    """Widget code for the three buttons recycling, trash, compost
+    """Widget code for the three buttons recycling, waste, compost
     """
 
     def __init__(self, root, relwidth, relheight, relx, rely, anchor, img_default, img_correct, img_wrong, command):
@@ -45,7 +46,7 @@ class ButtonWidget:
             self.btn_image = ImageTk.PhotoImage(self.btn_image)
             self.btn.configure(image=self.btn_image)
         except:
-            print("ERROR - could not get size dimensions")
+            log.warning("could not get size dimensions")
 
     def change_image_default(self):
         """Changes the image to be the default image

@@ -1,7 +1,6 @@
 """ This file holds GreenMindsModel
     GreenMindsModel loads a PyTorch model to use for inference on images
 """
-
 import torch
 from torchvision import transforms
 
