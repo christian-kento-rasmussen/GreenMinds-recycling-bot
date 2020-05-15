@@ -76,7 +76,7 @@ class RobotBart:
         """plays bart's happy anim with sound
         """
         self._remove_label_item_name()
-        self._play_anim("assets/gui/Bart_happy_anim", 1000, 0, 2)
+        self._play_anim("assets/gui/Bart/anim_No_OoopsV1", 0, 0, 69)
         sound = sa.WaveObject.from_wave_file("assets/gui/Bart_happy_anim/audio.wav")
         sound.play()
 
@@ -89,7 +89,7 @@ class RobotBart:
             end_image {int} -- The last image to play
         """
         if currect_image <= end_image:
-            self._update_image(path + "/frame_" + str(currect_image) + ".png")
+            self._update_image(path + "/frame_" + str(currect_image) + ".jpg")
             self.robot_bart.after(with_delay, lambda: self._play_anim(path, with_delay, currect_image+1, end_image))
 
     def _create_label_item_name(self, item_name):
