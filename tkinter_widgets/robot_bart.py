@@ -1,6 +1,7 @@
 """Code for the robt and background widget
 """
 import logging as log
+import random
 import tkinter as tk
 import simpleaudio as sa
 from PIL import Image, ImageTk
@@ -76,9 +77,27 @@ class RobotBart:
         """plays bart's happy anim with sound
         """
         self._remove_label_item_name()
-        self._play_anim("assets/gui/Bart/anim_No_OoopsV1", 0, 0, 69)
-        sound = sa.WaveObject.from_wave_file("assets/gui/Bart_happy_anim/audio.wav")
-        sound.play()
+        animations = [
+            "assets/gui/Bart/Yes_Outstanding_V2",
+            "assets/gui/Bart/Yes_Right on_V2",
+            "assets/gui/Bart/Yes_Well done_V2",
+            "assets/gui/Bart/Yes_Yahoo_V2",
+            "assets/gui/Bart/Yes_Youre amazing_V2"]
+        self._play_anim(random.choice(animations), 0, 0, 69)
+        #sound = sa.WaveObject.from_wave_file("assets/gui/Bart_happy_anim/audio.wav")
+        # sound.play()
+
+    def play_sad_anim(self):
+        """plays bart's happy anim with sound
+        """
+        self._remove_label_item_name()
+        animations = [
+            "assets/gui/Bart/No_Ooops_V2",
+            "assets/gui/Bart/No_Sorry_V2",
+            "assets/gui/Bart/No_Too bad_V2"]
+        self._play_anim(random.choice(animations), 0, 0, 69)
+        #sound = sa.WaveObject.from_wave_file("assets/gui/Bart_happy_anim/audio.wav")
+        # sound.play()
 
     def _play_anim(self, path, with_delay, currect_image, end_image):
         """Plays an animations by calling itself   

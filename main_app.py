@@ -117,7 +117,7 @@ class TKinterApp:
             self.recycle_button_pressed = True
             if self.items["items"][self.detection_name]["recycling-type"] == "recyclable":  # and it is recyclebel
                 self.recycle_button.change_image_correct()
-                self.robot_bart.make_bart_happy()
+                self.robot_bart.play_happy_anim()
                 self.webcam.clear_text()
                 self.webcam.add_text_title(self.items["items"][self.detection_name]["guessed_correct_title"])
                 self.webcam.add_text_body(self.items["items"][self.detection_name]["guessed_correct_body"])
@@ -125,7 +125,7 @@ class TKinterApp:
 
             else:  # and it is not recyclebel
                 self.recycle_button.change_image_wrong()
-                self.robot_bart.make_bart_sad()
+                self.robot_bart.play_sad_anim()
                 self.webcam.clear_text()
                 self.webcam.add_text_title(self.items["items"][self.detection_name]["guessed_incorrect_title"])
                 self.webcam.add_text_body(self.items["items"][self.detection_name]["guessed_incorrect_body"])
@@ -134,7 +134,7 @@ class TKinterApp:
             self.waste_button_pressed = True
             if self.items["items"][self.detection_name]["recycling-type"] == "waste":  # and it is waste
                 self.waste_button.change_image_correct()
-                self.robot_bart.make_bart_happy()
+                self.robot_bart.play_happy_anim()
                 self.webcam.clear_text()
                 self.webcam.add_text_title(self.items["items"][self.detection_name]["guessed_correct_title"])
                 self.webcam.add_text_body(self.items["items"][self.detection_name]["guessed_correct_body"])
@@ -142,7 +142,7 @@ class TKinterApp:
 
             else:  # and it is not waste
                 self.waste_button.change_image_wrong()
-                self.robot_bart.make_bart_sad()
+                self.robot_bart.play_sad_anim()
                 self.webcam.clear_text()
                 self.webcam.add_text_title(self.items["items"][self.detection_name]["guessed_incorrect_title"])
                 self.webcam.add_text_body(self.items["items"][self.detection_name]["guessed_incorrect_body"])
@@ -158,7 +158,7 @@ class TKinterApp:
                 self.compost_button.btn.after(3500, lambda: self._reset_app_after())
             else:  # and it is not compostable
                 self.compost_button.change_image_wrong()
-                self.robot_bart.make_bart_sad()
+                self.robot_bart.play_sad_anim()
                 self.webcam.clear_text()
                 self.webcam.add_text_title(self.items["items"][self.detection_name]["guessed_incorrect_title"])
                 self.webcam.add_text_body(self.items["items"][self.detection_name]["guessed_incorrect_body"])
