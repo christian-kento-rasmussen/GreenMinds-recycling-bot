@@ -21,6 +21,8 @@ class RobotBart:
         self.robot_bart.bind("<Configure>", self.on_resize)
 
         self.name_label = None
+        # Holds the id of the current animation playing
+        self.video_id_playing = 0
         self.make_bart_default()
 
     def on_resize(self, event):
@@ -83,7 +85,8 @@ class RobotBart:
             "assets/gui/Bart/Yes_Well done_V2",
             "assets/gui/Bart/Yes_Yahoo_V2",
             "assets/gui/Bart/Yes_Youre amazing_V2"]
-        self._play_anim(random.choice(animations), 0, 0, 69)
+        self.video_id_playing = random.randint(0, 99999)
+        self._play_anim(self.video_id_playing, random.choice(animations), 0, 0, 68)
         #sound = sa.WaveObject.from_wave_file("assets/gui/Bart_happy_anim/audio.wav")
         # sound.play()
 
@@ -95,11 +98,12 @@ class RobotBart:
             "assets/gui/Bart/No_Ooops_V2",
             "assets/gui/Bart/No_Sorry_V2",
             "assets/gui/Bart/No_Too bad_V2"]
-        self._play_anim(random.choice(animations), 0, 0, 69)
+        self.video_id_playing = random.randint(0, 99999)
+        self._play_anim(self.video_id_playing, random.choice(animations), 0, 0, 68)
         #sound = sa.WaveObject.from_wave_file("assets/gui/Bart_happy_anim/audio.wav")
         # sound.play()
 
-    def _play_anim(self, path, with_delay, currect_image, end_image):
+    def _play_anim(self, video_id, path, with_delay, currect_image, end_image):
         """Plays an animations by calling itself   
 
         Arguments:
@@ -107,9 +111,10 @@ class RobotBart:
             currect_image {int} -- the image to play
             end_image {int} -- The last image to play
         """
-        if currect_image <= end_image:
+        # stops the animation if another animation has been started
+        if currect_image <= end_image and video_id == self.video_id_playing:
             self._update_image(path + "/frame_" + str(currect_image) + ".jpg")
-            self.robot_bart.after(with_delay, lambda: self._play_anim(path, with_delay, currect_image+1, end_image))
+            self.robot_bart.after(with_delay, lambda: self._play_anim(video_id, path, with_delay, currect_image+1, end_image))
 
     def _create_label_item_name(self, item_name):
         self.name_label = tk.Label(self.root, text=item_name, bg="#d0dfae", fg="#006838", font=('Avenir', 40, "bold"), wraplength=200, anchor="n")
