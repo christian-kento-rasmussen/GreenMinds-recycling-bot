@@ -1,6 +1,7 @@
 """This file is used to run the GreenMinds-Recycling-Bot
     to run in console: "python main_app.py"
 """
+
 import logging as log
 import tkinter as tk
 import json
@@ -165,8 +166,8 @@ class TKinterApp:
 
     def _reset_app_after(self):
         self.detection_name = ""
-        self.webcam.clear_text()
         self.robot_bart.make_bart_default()
+        self.webcam.clear_text()
         self.recycle_button.change_image_default()
         self.waste_button.change_image_default()
         self.compost_button.change_image_default()
